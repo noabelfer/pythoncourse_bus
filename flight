@@ -1,0 +1,215 @@
+flyingclass = {
+'first_class': {
+    "seats": {('A', 'D'): 0, ('B', 'C'): 0},
+    "meal": {'luxury_menu1': 0, 'luxury_menu2': 0, 'luxury_menu3': 0 },
+    "legroom": {(): 0},
+    "lines": {(1, 4): 4000},
+    "luggage": {'limit': None , 'price': 0},
+    "luxury": {"luxury_menu1" : 'STARTER - Roast veal sweetbread, MAIN    - Cornish turbot,  DESERT  - Hazelnut souffle '  ,
+               "luxury_menu2" : 'STARTER - Ravioli lobster , MAIN    - 100-Day aged Cumbrian Blue Grey,  DESERT  - Pecan praline'  ,
+               "luxury_menu3" : 'STARTER - Scallops from the Isle of Skye , MAIN    - Aynhoe Park fallow deer,  DESERT  - Caramelised apple Tarte Tatin '}
+},
+
+
+'business': {
+    "seats": {('A', 'D'): 55, ('B', 'C'): 0},
+    "meal": {'luxury_menu1': 42, 'luxury_menu2': 42, 'luxury_menu3': 42, 'business': 0},
+    "legroom": {(): 0},
+    "lines": {(5, 7): 3000, (8, 10): 2300},
+    "luggage": {'limit': 50,  'price': 10},
+    "luxury": {'luxury_menu1' : 'STARTER - Roast veal sweetbread, MAIN    - Cornish turbot,  DESERT  - Hazelnut souffle '  ,
+               'luxury_menu2' : 'STARTER - Ravioli lobster , MAIN    - 100-Day aged Cumbrian Blue Grey,  DESERT  - Pecan praline ' ,
+               'luxury_menu3' : 'STARTER - Scallops from the Isle of Skye , MAIN    - Aynhoe Park fallow deer,  DESERT  - Caramelised apple Tarte Tatin '}
+},
+
+
+
+'economy': {
+    "seats": {('A', 'F'): 10, ('B', 'C', 'D', 'E'): 0},
+    "meal": {'luxury_menu1': 42, 'luxury_menu2': 42, 'luxury_menu3': 42, 'business_menu': 22, 'economy_menu': 7},
+    "lines": {(11, 20): 1700,
+              (21, 40): 1500,
+              (41,60): 1200},
+    "legroom": {(12, 22, 42): 15 },
+    "luggage": {'limit': 20,  'price': 10},
+    "luxury": {'luxury_menu1' : 'STARTER - Roast veal sweetbread, MAIN    - Cornish turbot,  DESERT  - Hazelnut souffle '  ,
+               'luxury_menu2' : 'STARTER - Ravioli lobster , MAIN    - 100-Day aged Cumbrian Blue Grey,  DESERT  - Pecan praline ' ,
+               'luxury_menu3' : 'STARTER - Scallops from the Isle of Skye , MAIN    - Aynhoe Park fallow deer,  DESERT  - Caramelised apple Tarte Tatin '}}}
+
+
+
+
+def get_class_name() -> str:
+    classtopick = list(flyingclass.keys())
+    while True:
+        print(f"\n we have these classes you can pick from:{classtopick}")
+        class_chosen = input('please select a class: ')
+        if class_chosen in classtopick:
+            print (f"\ngreat {name}, you chose: {class_chosen} class")
+            return class_chosen
+        else:
+            print('error, choose again')
+
+
+
+def meal(my_chosen_class:str) -> tuple:
+
+#add lux explenations to menu
+    lux_keys = list(flyingclass.get(my_chosen_class).get('luxury').keys())
+    lux_ops = flyingclass.get(my_chosen_class).get('luxury')
+    lux_list = list(lux_ops.keys())
+    print(f'\nin {my_chosen_class} class you can choose from these menues,\n if you wish to have a luxury menu by chef Gordon Ramzi, \n '
+          f'\nplease see the luxury menues bellow: \n')
+    for lux in lux_list:
+        luxexp = lux_ops.get(lux)
+
+        print(lux,luxexp)
+
+
+#the names of the list of all meals: meals_key (menuluxury1,2 etc.)
+    meals_key = list(flyingclass.get(my_chosen_class).get('meal').keys())
+    #meals_options = the tuple of the meal name and price
+    meals_options = flyingclass.get(my_chosen_class).get('meal')
+    #print(f'in {my_chosen_class} class you can choose from these menues, if you wish to have a luxury menu by chef Gordon Ramzi, \n '
+          # f'please see the luxury menues bellow: ')
+    for i in range(1,len(meals_key)+1):
+        meal_name = meals_key[i-1]
+        meal_price = meals_options.get(meal_name)
+
+        print(f" {i}  {meal_name} price {meal_price}$")
+        # if meal_name in lux_keys:
+
+    while True:
+        meal_c = input('\nplease pick a meal number from the list above: ')
+        if not meal_c.isnumeric():
+            print('error')
+            continue
+        meal_chosen = int(meal_c)
+        if meal_chosen > 0 and meal_chosen <= len(meals_key):
+            meal_user_chose = meals_key[meal_chosen-1]
+            meal_user_price =  meals_options.get(meal_user_chose)
+            print(f'great choice, {name}, you chose {meal_user_chose} and the price for it is: {meal_user_price}$')
+            return (meal_user_chose, meal_user_price)
+        print ('error, please type again the number of menu: ')
+
+
+def lines(my_chosen_class: str) -> tuple:
+    legroom_ops = flyingclass.get(my_chosen_class).get('legroom')
+    legroom_list = list(legroom_ops.keys())
+    lines_opt = flyingclass.get(my_chosen_class).get('lines')
+    lines_list = list(lines_opt)
+    while True:
+        print(f"\n these are the lines and prices you can choose from in {my_chosen_class}, {lines_opt}:")
+        #print("lenlist ", legroom_list)
+        if (legroom_list != [()]):
+            print(f" these are the extra legroom lines {legroom_ops}:")
+        line_chosen = int(input('\nplease choose a line: '))
+        found = False
+        for key in lines_list:
+            if (line_chosen >= key[0] and line_chosen <= key[1]):
+                line_price = lines_opt.get(key)
+                found = True
+                #print('key ', key, 'val ', line_price)
+
+                print(f"\n you chose line number:{line_chosen}  ")
+                for item in legroom_list:
+                    if line_chosen in item:
+                        line_price += legroom_ops.get(item)
+                        print(f"this line costs 15$ more because it has an extra legroom,  line:{line_chosen}")
+                        break
+                break
+        if (not found):
+            print("Wrong selection")
+            continue
+
+        print(f"the price is {line_price}$")
+        return (line_price, line_chosen)
+
+
+
+def seats (my_chosen_class:str) -> tuple:
+    while True:
+        seats_op = flyingclass.get(my_chosen_class).get('seats')
+        seat_op_list = list(flyingclass.get(my_chosen_class).get('seats').keys())
+
+        seat_chosen = input(f'\nThese are the seats and their prices, please choose a seat: {seats_op} ')
+        for seat_ch in seat_op_list:
+            if seat_chosen in seat_ch:
+                seat_cost = seats_op.get(seat_ch)
+                return (seat_chosen, seat_cost)
+
+        print('error, please enter again')
+
+
+def luggage(my_class) -> int:
+    while True:
+        lug_extra = 0
+        isluggage = input('\nwould you like to add any luggage? type y/n: ')
+        if isluggage == 'n':
+            return lug_extra
+        if isluggage == 'y':
+            while True:
+                lug_lim = flyingclass[my_class]['luggage']['limit']
+                lug_ex_price = flyingclass[my_class]['luggage']['price']
+                print(f'\nyour limit is {lug_lim} and the cost for every extra kg is {lug_ex_price}')
+
+                if my_class != 'first_class':
+                    luggage_w = int(input('what is the weight of you luggage? '))
+                    if luggage_w > lug_lim:
+                        lug_extra += (luggage_w - lug_lim) * (lug_ex_price)
+                print(f"the total fee for your luggage is:{lug_extra}$")
+                return lug_extra
+
+
+def prRed(skk): print("\033[91m {}\033[00m".format(skk))
+
+def prGreen(skk): print("\033[92m {}\033[00m".format(skk))
+
+def prYellow(skk): print("\033[93m {}\033[00m".format(skk))
+
+def prLightPurple(skk): print("\033[94m {}\033[00m".format(skk))
+
+def prPurple(skk): print("\033[95m {}\033[00m".format(skk))
+
+def prCyan(skk): print("\033[96m {}\033[00m".format(skk))
+
+
+
+if __name__ == "__main__":
+
+
+
+    prPurple("------WELCOME TO NOA'S AIRLINES------")
+    name:str = input('please enter your name')
+    destination = input('where are we flying to?')
+    my_class = get_class_name()
+    meal_user_price_and_name = meal(my_class)
+    line_price_linenumber = lines(my_class)
+    seat_cost = seats(my_class)
+    lug_extra = luggage(my_class)
+
+
+user_d = {}
+
+user_d['name'] = name
+user_d['destination'] = destination
+user_d['class'] = my_class
+user_d['line number'] = line_price_linenumber[1]
+user_d['line price'] = line_price_linenumber[0]
+user_d['seat price'] = seat_cost[1]
+user_d['seat chosen'] = seat_cost[0]
+user_d['meal price'] = meal_user_price_and_name[1]
+user_d['meal chosen'] = meal_user_price_and_name[0]
+user_d['luggage price'] = lug_extra
+
+
+print(f""
+      f""
+      f" here are the details of your reservation:{user_d}")
+
+
+
+
+total_ticket_price:int = meal_user_price_and_name[1] + line_price_linenumber[0] + int(seat_cost[1]) + int(lug_extra)
+prGreen(f""
+        f" {name}, total price of your ticket to {destination} is: {total_ticket_price}$\n have a nice flight!")
