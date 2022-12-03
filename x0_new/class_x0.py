@@ -16,7 +16,6 @@ class Board:
 
 
 
-
     def greeting(self) ->list:
         print("welcome to tic-tac-toe!!!")
         player1:str = input("hello player, please enter your name:  ")
@@ -156,10 +155,10 @@ class Board:
             row_col = input ('row,col  ')
             row_col_spl = row_col.split(',')
             if len(row_col_spl) != 2:
-                print('please enter again1: ')
+                print('please enter again: ')
                 continue
             if not row_col_spl[0]. isnumeric() or not row_col_spl[1]. isnumeric():
-                print('please enter again2: ')
+                print('please enter again: ')
                 continue
             row = int(row_col_spl[0])-1
             col = int(row_col_spl[1])-1
