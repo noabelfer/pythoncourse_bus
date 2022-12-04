@@ -21,8 +21,9 @@ if __name__ == '__main__':
         result = game.victory()
         print(result)
         if result[0] != 'None':
+            game.display1()
             break
-    print(f" the winner is {game.name(result[1])}: {result[0]} on {result[2]+1}")
+    print(f" the winner is {game.name(result[1])}!!!: {result[0]} on {result[2]+1}")
     result = game.victory()
 
 
