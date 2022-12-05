@@ -1,0 +1,26 @@
+In this exercise you are going to implement a class that will manage a RavKav card.
+
+Use private attributes and/or methods when needed.
+
+In this exercise we are going to use a simple version of RavKav.
+Using the RavKav, one can only purchase single rides for the balance (no daily/ monthly passes or other options).
+There are 3 types of rides:
+•	short (up to 15 km) - 5.5 shekels
+•	medium (up to 40 km) - 12 shekels
+•	long (above 40 km) - 23 shekels
+
+RavKav should store the following data:
+•	holder_id
+•	holder_name
+•	balance
+•	rides_log - all the rides represented by ride type and datetime
+
+RavKav should support the following methods:
+
+
+•	topup - given amount of money, add it to the balance
+•	ride - given amount of km and datetime, purchase the ride and log it. Make sure to indicate If there is not enough money for the ride
+•	get_current_balance
+•	get_rides_by_date - given a date, return amount of rides in this date
+•	get_rides_by_type - given a ride type (short/medium/long), return amount of  rides of this type
+
