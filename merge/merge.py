@@ -35,11 +35,16 @@ def merge3(num1:list, num2: list):
             num1.append(cu)
         return num1 
     while(len(num2) > 0):
+        #pull the first item from num2
         ch = num2.pop(0)
+        #find the location of the pulled item in list1
         for i ,v in enumerate(num1):
             if(ch < v) or (v==0):
-                for j in range(len(num1)-1,i,-1):
+                #here we found the the location of ch in num1 is i
+                #So we move all items in num above location i one place higher
+                for j in range(len(num1)-1,i,-1):                   
                     num1[j] = num1[j-1]
+                #put ch in num1
                 num1[i] = ch
                 break
     return num1
