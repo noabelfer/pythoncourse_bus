@@ -41,7 +41,15 @@ def merge3(num1:list, num2: list):
         for i ,v in enumerate(num1):
             if(ch < v) or (v==0):
                 #here we found the the location of ch in num1 is i
-                #So we move all items in num above location i one place higher
+                #So we move all items in num1[i:len()-1] to [i+1:len()-1] .
+                #the item located in num1[len()-1] is discarded. 
+                #num1[i] is replaced by ch 
+                #For example: num1 [1,3,5,7,9,0,0,0]
+                #             num2 [2,4,6]
+                # we compare 2 to num1[] and find out that 2 should be locate between 1 and 3 in num1
+                # Next step is to move num1[2:8] to num1[3,8] the last 0 is thrown out .
+                # Now num1[2] is updated by ch and the result for i=1 is [1,2,3,5,7,9,0,0]
+                # The same is done for all iitems of num2 
                 for j in range(len(num1)-1,i,-1):                   
                     num1[j] = num1[j-1]
                 #put ch in num1
