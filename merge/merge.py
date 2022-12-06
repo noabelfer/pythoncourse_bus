@@ -28,32 +28,30 @@ def merge2(num1:list, num2: list):
     while(len(num2) > 0):
         out.append(num2.pop(0))
     return out
-            
+# for example
+#  num1 [1,3,5,7,9,0,0,0]  
+#  num2 [2,4,6]      
 def merge3(num1:list, num2: list):
     if(num1 == []):
         for cu in num2:
             num1.append(cu)
         return num1 
-    while(len(num2) > 0):
-        #pull the first item from num2
-        ch = num2.pop(0)
-        #find the location of the pulled item in list1
+    for item_num2 in num2:
+       
+        #find the location of item_num2  in num1
         for i ,v in enumerate(num1):
-            if(ch < v) or (v==0):
-                #here we found the the location of ch in num1 is i
-                #So we move all items in num1[i:len()-1] to [i+1:len()-1] .
-                #the item located in num1[len()-1] is discarded. 
-                #num1[i] is replaced by ch 
-                #For example: num1 [1,3,5,7,9,0,0,0]
-                #             num2 [2,4,6]
-                # we compare 2 to num1[] and find out that 2 should be locate between 1 and 3 in num1
-                # Next step is to move num1[2:8] to num1[3,8] the last 0 is thrown out .
-                # Now num1[2] is updated by ch and the result for i=1 is [1,2,3,5,7,9,0,0]
-                # The same is done for all iitems of num2 
+            if(item_num2 < v) or (v==0):
+                # item_num2 = 2
+                # i = 1
+                # v = 3
+                #The next loop will shit num1
+                #befor the loop num1 [1,3,5,7,9,0,0,0]
                 for j in range(len(num1)-1,i,-1):                   
                     num1[j] = num1[j-1]
-                #put ch in num1
-                num1[i] = ch
+                #after the loop num1 [1,3,3,5,7,9,0,0]
+                #put item_num2 in num1
+                num1[i] = item_num2
+                #now num1 [1,2,3,5,7,9,0,0]
                 break
     return num1
                 
