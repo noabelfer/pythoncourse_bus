@@ -7,28 +7,34 @@ import csv
 infile = "AAPL.csv"
 
 print(infile)
-LOW_COL = 1
-HIGH_COL = 4
+LOW_PRICE_COL = 1
+HIGH_PRICE_COL = 4
 VOLUME_COL = 3
 with open(infile, newline='') as csvfile:
     spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
     pre_year = 0
     dict = {}
+    #Loop of reading all lines of csv file
     for i,row in enumerate(spamreader):
+        #if first row just skip ,no data
         if(i == 0):
             header = row
             print(len(header),header)
         else:
             #Date,Low,Open,Volume,High,Close,Adjusted Close
             # 0     1   2     3     4    5       6
+            #Extracting the year from column 0
             year = row[0].split('-')[2]
+            # Here we check if the year has changed 
             if(year != pre_year):
+                # adding year entry to data dictionay 
                 dict[year] = {'lowpriice':  [],'highprice':[],'volume':[]}
                 pre_year = year
-            dict[year]['lowpriice'].append(float(row[LOW_COL]))
-            dict[year]['highprice'].append(float(row[HIGH_COL]))
+            #appending data to year entry
+            dict[year]['lowpriice'].append(float(row[LOW_PRICE_COL]))
+            dict[year]['highprice'].append(float(row[HIGH_PRICE_COL]))
             dict[year]['volume'].append(float(row[VOLUME_COL]))
-
+    #Here after reading all csv file  we do final computations on the lists
     for y in dict.keys():
         low_price  = min(dict[y]['lowpriice'])
         high_price = max(dict[y]['highprice'])
