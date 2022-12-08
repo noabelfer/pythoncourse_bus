@@ -39,8 +39,8 @@ with open(infile, newline='') as csvfile:
         low_price  = min(dict[y]['lowpriice'])
         high_price = max(dict[y]['highprice'])
         ave_volume = sum(dict[y]['highprice'])/len(dict[y]['highprice'])
-        min_volume = min(dict[y]['highprice'])
-        max_volume = max(dict[y]['highprice'])
+        min_volume = min(dict[y]['volume'])
+        max_volume = max(dict[y]['volume'])
         print('year: ',y,' low_p: ',low_price,' high_p: ',high_price,' ave_vol: ',ave_volume,' min_vol: ',min_volume,' max_vol: ',max_volume)
         
   
