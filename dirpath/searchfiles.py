@@ -1,0 +1,20 @@
+import os
+import sys
+import csv
+
+def search_csv_files(path):
+    for (root, dirs, files) in os.walk(path):
+        for f in files:
+            if f.endswith(".csv"):
+                fname = os.path.join(root, f)
+                with open(fname, newline='') as csvfile:
+                    spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
+                    for row in spamreader:
+                        row_count = sum(1 for row in spamreader) 
+                        fname_cols = len(row)
+                        print('File :',fname,' lines: ',row_count,' cols ',fname_cols)
+                        csvfile.close()
+                        break
+       
+       
+print(search_csv_files(".."))
