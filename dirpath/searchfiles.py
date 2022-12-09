@@ -8,13 +8,14 @@ def search_csv_files(path):
             if f.endswith(".csv"):
                 fname = os.path.join(root, f)
                 with open(fname, newline='') as csvfile:
-                    spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
-                    for row in spamreader:
-                        row_count = sum(1 for row in spamreader) 
+                    csvreader = csv.reader(csvfile, delimiter=',', quotechar='|')
+                    for row in csvreader:
+                        row_count = sum(1 for row in csvreader) 
                         fname_cols = len(row)
                         print('File :',fname,' lines: ',row_count,' cols ',fname_cols)
                         csvfile.close()
                         break
-       
+    print("end")
+    exit()
        
 print(search_csv_files(".."))
