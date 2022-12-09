@@ -15,7 +15,6 @@ def search_csv_files(path):
                         print('File :',fname,' lines: ',row_count,' cols ',fname_cols)
                         csvfile.close()
                         break
-    print("end")
-    exit()
+
        
-print(search_csv_files(".."))
+search_csv_files("..")
