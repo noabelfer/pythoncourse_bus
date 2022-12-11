@@ -1,4 +1,4 @@
-import busroute
+from busbest import busroute
 
 
 class BestBusCompany:
