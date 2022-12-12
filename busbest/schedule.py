@@ -15,4 +15,9 @@ class ScheduledRides:
         st = str(self.id) + "  " + str(self.origin_time) + " " + str(self.destination_time) + " " + str(self.driver_name)
         return st
 
+    def search_items_val(self):
+        st2 = str(self.id) + "  " + str(self.origin_time) + " " + str(self.destination_time) +str(self.delays)
+        return st2
+    #
+    # def report_delay(self,):
 

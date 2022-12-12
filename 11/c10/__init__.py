@@ -31,6 +31,20 @@ class Text_file(ABC):
     def get_specific_content(self, fh):
         pass
 
+    def concat(file1, file2):
+        newdata = []
+        newdata.append(file1)
+        newdata.append(file2)
+        name1 =(os.path.splitext(file1)[0])
+        name2 = (os.path.splitext(file2)[0])
+        newname = name1 + '_' + name2
+        with open(f'{newname}', 'w') as outfile:
+            for new_files in newdata:
+                with open(new_files) as infile:
+                    outfile.write(infile.read())
+                outfile.write("\n")
+
+
 
     # @abstractmethod
     # def is_extension_valid(self) -> bool :
@@ -41,38 +55,38 @@ class Text_file(ABC):
 
 
 class CsvFile(Text_file):
+
     def _get_ext(self):
         return 'csv'
 
     def get_specific_content(self, fh):
         ret_val = []
-        for row in csv.DictReader(fh, delimeter = self._delimeter):
+        for row in csv.DictReader(fh):
             ret_val.append(row)
         return ret_val
 
 
 class TxtFile(Text_file):
-    def __init__(self, file_path, delimeter=','):
-        super().__init__(file_path)
-        self._delimeter = delimeter
 
-    def _get_specific_content(self, fh):
+    def get_specific_content(self, fh):
         return fh.read()
 
     def _get_ext(self):
         return 'txt'
 
 
-
 class JsonFile(Text_file):
-    def _get_specific_content(self, fh):
+    def get_specific_content(self, fh):
         return json.load(fh)
 
     def _get_ext(self):
         return 'json'
 
+newtext = TxtFile.concat("/Users/noabelfer/Downloads/sample3.txt", "/Users/noabelfer/Downloads/alice_in_wonderland (1).txt")
 
-csv_file =CsvFile("/Users/noabelfer/PycharmProjects/pythoncourse/csvaple/AAPL.csv")
-files_list = [csv_file]
-for f in files_list:
-    print(f.get_content())
+# csv_file =CsvFile("/Users/noabelfer/PycharmProjects/pythoncourse/csvaple/AAPL.csv")
+# text = TxtFile("/Users/noabelfer/Downloads/alice_in_wonderland (1).txt")
+# j = JsonFile("/Users/noabelfer/Downloads/sample2.json")
+# files_list = [j]
+# for f in files_list:
+#     print(f._get_content())
