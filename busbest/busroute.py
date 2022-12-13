@@ -14,12 +14,9 @@ class BusRoute:
         self._line_number: int = line_number
 
 
-
-
     def __str__(self) -> str:
         st =str(self._line_number) + " "  + self.origin + " " + self.destination + " " + str(self.list_stops) +" " + str(self._bus_schedule)
         return st
-
 
 
     def search_route(self, k,v) -> bool:
@@ -44,8 +41,7 @@ class BusRoute:
         my_dict['list_stops'] = self.list_stops
         my_dict['bus_schedule'] = {}
         for d in self._bus_schedule:
-            print(d)
-            print(self._bus_schedule)
+            print(self._bus_schedule, d)
             my_dict['bus_schedule'][d] = self._bus_schedule[d].get_dict_s()
         print (my_dict)
         return my_dict
@@ -64,22 +60,31 @@ class BusRoute:
         self.list_stops = list_stops
 
 
-
     def add_schedule(self, origin_time:int, destination_time:int, driver_name:str):
         s = schedule.ScheduledRides(origin_time, destination_time, driver_name)
         id:int = int(random.randrange(1,1000))
         self._bus_schedule[id] = s
 
-    # def add_delay(self, ):
+    def add_delay(self, id, delay_min):
+        self._bus_schedule[id].add_delay(delay_min)
+
 
     def get_sc_dict(self):
         print(self._bus_schedule)
 
 
 a = BusRoute(5,'telaviv', 'ramm', ['aaa','bbb'])
+b = BusRoute(5,'telaviv', 'ramm', ['aaa','bbb'])
 c = BusRoute(7,'bal', 'rm', ['aaa','bbb'])
+
 a.add_schedule(9,11,'noa')
-a.get_dict()
+d = a.get_dict()
+
+for i in d['bus_schedule']:
+    a.add_delay(i,5)
+print(a.get_dict(),'ooo')
+# a.display_r()
+
 
 
 

@@ -11,9 +11,6 @@ class ScheduledRides:
         self.delays:list = []
 
 
-
-
-
     def __str__(self):
         st = str(self.id) + "  " + str(self.origin_time) + " " + str(self.destination_time) + " " + str(self.driver_name)
         return st
@@ -27,5 +24,9 @@ class ScheduledRides:
         return s_dict
 
     #
-    # def report_delay(self,):
+    def add_delay(self, delay_min):
+        self.delays.append(delay_min)
+
+
+
 
