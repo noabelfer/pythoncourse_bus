@@ -1,6 +1,7 @@
 import random
 
 from busbest import schedule
+from busbest.schedule import ScheduledRides
 
 
 class BusRoute:
@@ -11,6 +12,8 @@ class BusRoute:
         self.list_stops = list_stops
         self._bus_schedule = {}
         self._line_number: int = line_number
+
+
 
 
     def __str__(self) -> str:
@@ -42,21 +45,10 @@ class BusRoute:
         my_dict['bus_schedule'] = {}
         for d in self._bus_schedule:
             print(d)
-            #my_dict['bus_schedule'][d] = self._bus_schedule[d].get_dict_s()
             print(self._bus_schedule)
             my_dict['bus_schedule'][d] = self._bus_schedule[d].get_dict_s()
         print (my_dict)
         return my_dict
-
-        # for d in self.my_dict:
-        #     if d == k and self.my_dict[k] == v:
-        #         self.my_dict.get(k)
-        #         print(self.my_dict, self._bus_schedule)
-        #         # my_dict_copy = self.my_dict
-        #         # my_dict_copy['schedule'] = self.st
-        #         # return my_dict_copy
-        #     else:
-        #         return {}
 
 
     def display_r(self):
@@ -76,14 +68,12 @@ class BusRoute:
     def add_schedule(self, origin_time:int, destination_time:int, driver_name:str):
         s = schedule.ScheduledRides(origin_time, destination_time, driver_name)
         id:int = int(random.randrange(1,1000))
-        self._bus_schedule[id] = (id, origin_time, destination_time)
+        self._bus_schedule[id] = s
 
     # def add_delay(self, ):
 
     def get_sc_dict(self):
         print(self._bus_schedule)
-
-
 
 
 a = BusRoute(5,'telaviv', 'ramm', ['aaa','bbb'])
