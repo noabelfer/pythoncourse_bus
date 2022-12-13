@@ -25,18 +25,21 @@ class BestBusCompany:
         return True
 
     def delete_route(self, line_number):
-        if line_number in self.__bus_route.keys():
+        if line_number in self.__bus_route:
             q = input("are you sure you want to delete this route? type: y/n")
             if q == 'y':
-                self.__bus_route.pop(line_number)
-        print('no such line number')
-        return
+                del self.__bus_route
+                print(f'line {line_number} has been deleted')
+        else:
+            print('no such line number')
+            return
 
-    def search_items_val(self, search_item_key, search_item_val):
-        for l in self.__bus_route.keys():
+    def search_items_val(self, item_field, item_val):
+        for item_field in self.__bus_route:
+            for item_val
             s = self.__bus_route[l]
-            dict =  s.search(search_item_key, search_item_val)
-            if s.search_item_key == self.__bus_route[search_item_key]:
+            dict =  s.search(item_field, item_val)
+            if s.search_item_key == self.__bus_route[item_field]:
                 print(s.search)
                 return self.search_items_val()
 
@@ -54,12 +57,12 @@ class BestBusCompany:
 company = BestBusCompany()
 company.add_route(4,'telaviv','raanana',['aaa','bbb'])
 company.add_route(6,'telaviv','raanana',['aah','jbb'])
+company.delete_route(6)
 
-
-company.broute(4).add_schedule(9,10,"Moshe")
-company.broute(4).update_route('yy','bb',['mk','dr','se'])
-company.display_c()
-company.search_items_val('origin', 'telaviv')
+# company.broute(4).add_schedule(9,10,"Moshe")
+# company.broute(4).update_route('yy','bb',['mk','dr','se'])
+# company.display_c()
+# company.search_items_val('origin', 'telaviv')
 
 
 
