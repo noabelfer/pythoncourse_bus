@@ -36,7 +36,6 @@ class BestBusCompany:
 
     def search_items_val(self, item_field, item_val):
         for item_field in self.__bus_route:
-            for item_val
             s = self.__bus_route[l]
             dict =  s.search(item_field, item_val)
             if s.search_item_key == self.__bus_route[item_field]:

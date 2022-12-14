@@ -21,6 +21,7 @@ class BusRoute:
 
     def search_route(self, k,v) -> bool:
         current = False
+        print(self.list_stops, 'lk')
         match(k):
             case 'origin':
                 current = (self.origin == v)
@@ -60,11 +61,14 @@ class BusRoute:
         self.list_stops = list_stops
 
 
+    #create an object of type ScheduledRides:
+    #adds the object to self._bus_schedule = {}
     def add_schedule(self, origin_time:int, destination_time:int, driver_name:str):
         s = schedule.ScheduledRides(origin_time, destination_time, driver_name)
         id:int = int(random.randrange(1,1000))
         self._bus_schedule[id] = s
 
+    #adds delay to list of delays in self._bus_schedule by schedule class:
     def add_delay(self, id, delay_min):
         self._bus_schedule[id].add_delay(delay_min)
 
@@ -78,11 +82,13 @@ b = BusRoute(5,'telaviv', 'ramm', ['aaa','bbb'])
 c = BusRoute(7,'bal', 'rm', ['aaa','bbb'])
 
 a.add_schedule(9,11,'noa')
-d = a.get_dict()
-
-for i in d['bus_schedule']:
-    a.add_delay(i,5)
-print(a.get_dict(),'ooo')
+a.search_route('origin', 'tkklko')
+print(a.search_route('origin', 'telaviv'))
+# d = a.get_dict()
+#
+# for i in d['bus_schedule']:
+#     a.add_delay(i,5)
+# print(a.get_dict(),'ooo')
 # a.display_r()
 
 
