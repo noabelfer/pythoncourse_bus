@@ -1,3 +1,4 @@
+import datetime
 import random
 
 from busbest import schedule
@@ -44,20 +45,25 @@ class BusRoute:
         for d in self._bus_schedule:
             print(self._bus_schedule, d)
             my_dict['bus_schedule'][d] = self._bus_schedule[d].get_dict_s()
-        print (my_dict)
+        # print (my_dict)
         return my_dict
 
+
+    # def display_r(self):
+    #     print(self.__str__())
+    #     for s in self._bus_schedule:
+    #         print(self._bus_schedule[s])
 
     def display_r(self):
         print(self.__str__())
         for s in self._bus_schedule:
-            print(self._bus_schedule[s])
+            print(BusRoute[s].get_dict_s())
 
 
-    def update_route(self, origin:str, destination:str, list_stops:list):
+    def update_route(self, origin_time, destination_time, list_stops:list):
         # for BusRoute[line_number]:
-        self.origin = origin
-        self.destination= destination
+        self.origin = origin_time
+        self.destination= destination_time
         self.list_stops = list_stops
 
 
@@ -78,13 +84,13 @@ class BusRoute:
 
 
 a = BusRoute(5,'telaviv', 'ramm', ['aaa','bbb'])
-b = BusRoute(5,'telaviv', 'ramm', ['aaa','bbb'])
+# b = BusRoute(5,'telaviv', 'ramm', ['aaa','bbb'])
 c = BusRoute(7,'bal', 'rm', ['aaa','bbb'])
-
+#
 a.add_schedule(9,11,'noa')
-a.search_route('origin', 'tkklko')
-print(a.search_route('origin', 'telaviv'))
-# d = a.get_dict()
+# a.search_route('origin', 'tkklko')
+# print(a.search_route('origin', 'telaviv'))
+d = a.get_dict()
 #
 # for i in d['bus_schedule']:
 #     a.add_delay(i,5)

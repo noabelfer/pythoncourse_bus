@@ -6,7 +6,10 @@ from busbest import busroute
 
 class BestBusCompany:
     def __init__(self):
+        print('koko')
         self.__bus_route: {classmethod} = {}
+
+
 
     #when adding schedule, returns bus route object:
     def broute(self, line: int) -> busroute:
@@ -14,7 +17,9 @@ class BestBusCompany:
 
     def display_c(self):
         for bus in self.__bus_route:
-            self.__bus_route[bus].display_r()
+            print(self.__bus_route[bus].get_dict())
+
+            # self.__bus_route[bus].display_r()
 
     #adds object from type busroute (class) to bus_route dict:
     def add_route(self, line_number, origin, destination, list_stops) -> bool:
@@ -24,10 +29,10 @@ class BestBusCompany:
         self.__bus_route[line_number] = b
         return True
 
-    def delete_route(self, line_number):
+    def delete_route(self, line_number) -> bool:
+        if not line_number in self.__bus_route:
+            return  False
         if line_number in self.__bus_route:
-            q = input("are you sure you want to delete this route? type: y/n")
-            if q == 'y':
                 del self.__bus_route
                 print(f'line {line_number} has been deleted')
         else:
@@ -46,6 +51,13 @@ class BestBusCompany:
         for l in self.__bus_route:
             a = self.__bus_route[l].search(k,v)
 
+    def is_line(self, line_number) -> bool:
+        if line_number in self.__bus_route:
+            return True
+        else:
+            return False
+
+
 
 
     #adds object from type bus schedule {} (class) to self. bus_route class
@@ -53,10 +65,10 @@ class BestBusCompany:
     #     self.__bus_route[line_number].add_schedule(origin_time , destination_time, driver_name)
 
 
-company = BestBusCompany()
-company.add_route(4,'telaviv','raanana',['aaa','bbb'])
-company.add_route(6,'telaviv','raanana',['aah','jbb'])
-company.delete_route(6)
+# company = BestBusCompany()
+# company.add_route(4,'telaviv','raanana',['aaa','bbb'])
+# company.add_route(6,'telaviv','raanana',['aah','jbb'])
+# company.delete_route(6)
 
 # company.broute(4).add_schedule(9,10,"Moshe")
 # company.broute(4).update_route('yy','bb',['mk','dr','se'])
