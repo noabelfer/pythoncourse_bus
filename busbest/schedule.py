@@ -12,9 +12,11 @@ class ScheduledRides:
 
 
     def __str__(self):
-        st = str(self.id) + "  " + str(self.origin_time) + " " + str(self.destination_time) + " " + str(self.driver_name)
-        return st
+        return f'id:{self.id} origin_time:{self.origin_time} destination_time:{self.destination_time} driver name:{self.driver_name}'
 
+
+    def __repr__(self):
+        return self.__str__()
 
     def get_dict_s(self):
         s_dict = {}
