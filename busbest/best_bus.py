@@ -14,8 +14,12 @@ class BestBusCompany:
 
     def display_c(self):
         return self.__bus_route
-        # print(self.__bus_route[line_number])
-        # print(self.__bus_route.get_schedule(line_number))
+
+    def display_route_by(self, line_number):
+        return self.__bus_route[line_number]
+
+
+
 
     def display_route(self):
         print(self.__bus_route)
@@ -49,6 +53,13 @@ class BestBusCompany:
         self.destination = destination
         self.list_stops = list_stops
 
+    def search_origin(self, origin):
+        origin_lst = []
+        for line in self.__bus_route:
+            if self.__bus_route[line].search_origin(origin):
+                origin_lst.append(line)
+        return origin_lst
+
     def search_items_val(self, line_number):
         for line_number in self.__bus_route:
             s = self.__bus_route[l]
@@ -77,14 +88,16 @@ class BestBusCompany:
     #     self.__bus_route[line_number].add_schedule(origin_time , destination_time, driver_name)
 
 
-# company = BestBusCompany()
-# company.add_route(4,'telaviv','raanana',['aaa','bbb'])
-# company.add_route(6,'telaviv','raanana',['aah','jbb'])
-# company.delete_route(6)
+company = BestBusCompany()
+company.add_route(4,'telaviv','raanana',['aaa','bbb'])
+company.add_route(6,'telaviv','raanana',['aah','jbb'])
+company.broute(4).add_schedule(9,10,"Moshe")
+# print(company.display_route_by(4))
+print(company.search_origin('telaviv'))
 
 # company.broute(4).add_schedule(9,10,"Moshe")
 # company.broute(4).update_route('yy','bb',['mk','dr','se'])
-# company.display_c(4)
+# print(company.display_c())
 # # company.search_items_val('origin', 'telaviv')
 
 

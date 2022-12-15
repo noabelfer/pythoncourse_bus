@@ -10,10 +10,8 @@ class ScheduledRides:
         self.driver_name = driver_name
         self.delays:list = []
 
-
     def __str__(self):
         return f'id:{self.id} origin_time:{self.origin_time} destination_time:{self.destination_time} driver name:{self.driver_name}'
-
 
     def __repr__(self):
         return self.__str__()

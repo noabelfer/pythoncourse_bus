@@ -16,7 +16,7 @@ class BusRoute:
 
 
     def __str__(self) -> str:
-        return f'line_number: {self._line_number} origin: {self.origin} destination: {self.destination} list_stops: {self.list_stops} bus_schedule: {self._bus_schedule}'
+        return f'line_number: {self._line_number} \n origin: {self.origin} \n destination: {self.destination} \n list_stops: {self.list_stops} \n bus_schedule: {self._bus_schedule}'
 
 
     def __repr__(self):
@@ -32,15 +32,11 @@ class BusRoute:
     #             current = (self.destination == v)
     #         case 'stop':
     #             current =  (v in self.list_stops)
-    #     if current:
-    #         return True
-    #     else:
-    #         return False
+    #     return current
 
 
-    # def search_line_num(self, line_number):
-    #     for line_number in self._line_number:
-    #         print(my_dict[line_number])
+    def search_origin(self, origin) ->int:
+        return self.origin == origin
 
 
 
@@ -55,14 +51,10 @@ class BusRoute:
     #     print (my_dict)
     #     return my_dict
 
-    def get_dict(self, origin_time ,destination_time, driver_name):
-        # origin_time = ScheduledRides(self.origin_time)
-        # destination_time = ScheduledRides(self.destination_time)
-        # driver_name = ScheduledRides(self.driver_name)
-        self._bus_schedule[id] = ScheduledRides(origin_time ,destination_time, driver_name)
 
-    def get_schedule(self):
-        return self._bus_schedule
+
+    # def get_schedule(self):
+    #     return self._bus_schedule
 
     def display_r(self):
         print(self.__str__())
