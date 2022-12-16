@@ -31,8 +31,7 @@ class BusRoute:
         return self.destination == destination
 
     def search_station(self, station) -> int:
-        if station in self.list_stops:
-            return self.list_stops == station
+        return self.list_stops == station
 
     def add_delay(self, delay_min):
         return self._bus_schedule[id].add_delay(delay_min)
@@ -55,7 +54,7 @@ class BusRoute:
     #     self.list_stops = list_stops
 
 
-    #create an object of type ScheduledRides:
+
     #adds the object to self._bus_schedule = {}
     def add_schedule(self, origin_time:int, destination_time:int, driver_name:str):
         s = schedule.ScheduledRides(origin_time, destination_time, driver_name)

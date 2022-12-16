@@ -143,15 +143,19 @@ class Bus:
         origin = input("please insert the origin would like to search: ")
         for l in self._company.search_origin(origin):
             print(self._company.display_route_by(l))
+        print(f'origin {origin} not found')
 
     def search_destination(self):
         destination = input("please insert the destination would like to search: ")
         for l in self._company.search_destination(destination):
             print(self._company.display_route_by(l))
+        print(f'destination {destination} not found')
 
     def search_byline(self):
-        line_number = int(input("please insert the line you would like to search: "))
-        print(self._company.display_route_by(line_number))
+        line_number = self.select("please insert the line you would like to search: ", 1,1000)
+        if self._company.is_line(line_number):
+            print(self._company.display_route_by(line_number))
+        print('no such line number')
 
     def search_bystops(self):
         station = input("please insert the station you would like to search by: ")
