@@ -19,15 +19,10 @@ class BestBusCompany:
         return self.__bus_route[line_number]
 
 
-
-
     def display_route(self):
         print(self.__bus_route)
 
-        # for bus in self.__bus_route:
-        #     print(self.__bus_route[bus].get_schedule())
 
-            # self.__bus_route[bus].display_r()
 
     #adds object from type busroute (class) to bus_route dict:
     def add_route(self, line_number, origin, destination, list_stops) -> bool:
@@ -53,47 +48,47 @@ class BestBusCompany:
         self.destination = destination
         self.list_stops = list_stops
 
-    def search_origin(self, origin):
+    # searches for stations and returns list of lines that include this station:
+    def search_station(self, station) -> list:
+        stops_lst = []
+        for line in self.__bus_route:
+            if self.__bus_route[line].search_station(station):
+                stops_lst.append(line)
+        return stops_lst
+
+    #searches for origin and returns list of lines that include this origin:
+    def search_origin(self, origin) ->list:
         origin_lst = []
         for line in self.__bus_route:
             if self.__bus_route[line].search_origin(origin):
                 origin_lst.append(line)
         return origin_lst
 
-    def search_items_val(self, line_number):
-        for line_number in self.__bus_route:
-            s = self.__bus_route[l]
-            dict =  s.search(item_field, item_val)
-            if s.search_item_key == self.__bus_route[item_field]:
-                print(s.search)
-                return self.search_items_val()
-
-    # def search_line(self, k, v):
-    #     for l in self.__bus_route:
-    #         a = self.__bus_route[l].search(k,v)
-
-    # def search_line(self, line_number):
+    # searches for destination and returns list of lines that include this destination:
+    def search_destination(self, destination) ->list:
+        dest_lst = []
+        for line in self.__bus_route:
+            if self.__bus_route[line].search_destination(destination):
+                dest_lst.append(line)
+        return dest_lst
 
 
-    #checks if line exists
+    #checks if line exists in route:
     def is_line(self, line_number) -> bool:
         if line_number in self.__bus_route:
             return True
         else:
             return False
 
-
-    #adds object from type bus schedule {} (class) to self. bus_route class
-    # def add_schedule(self,line_number:int, origin_time:int, destination_time:int, driver_name:str):
-    #     self.__bus_route[line_number].add_schedule(origin_time , destination_time, driver_name)
-
-
-company = BestBusCompany()
-company.add_route(4,'telaviv','raanana',['aaa','bbb'])
-company.add_route(6,'telaviv','raanana',['aah','jbb'])
-company.broute(4).add_schedule(9,10,"Moshe")
-# print(company.display_route_by(4))
-print(company.search_origin('telaviv'))
+    def add_delay(self, delay_min, id):
+        return self.__bus_route.add_delay(delay_min,id)
+#
+# company = BestBusCompany()
+# company.add_route(4,'telaviv','raanana',['aaa','bbb'])
+# company.add_route(6,'telaviv','raanana',['aah','jbb'])
+# company.broute(4).add_schedule(9,10,"Moshe")
+# # print(company.display_route_by(4))
+# print(company.search_origin('telaviv'))
 
 # company.broute(4).add_schedule(9,10,"Moshe")
 # company.broute(4).update_route('yy','bb',['mk','dr','se'])

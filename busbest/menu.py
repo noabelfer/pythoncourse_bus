@@ -104,7 +104,7 @@ class Bus:
             print("the route has been updated!")
             self._company.update_route(origin, destination, list_stops)
 
-
+    #presents all the info on all routes and schedules:
     def company_info(self):
         print(self._company.display_c())
 
@@ -117,23 +117,50 @@ class Bus:
             case 3: self.top_menu()
 
     def search_route(self):
-        search_field = self.select("please select the field you would like to search by: [1] line_number \n [2] origin \n [3] stops \n [4] quit", 1, 4)
+        search_field = self.select("please select the field you would like to search by:\n [1] line_number \n [2] origin \n [3] destination \n [4] stops \n [5] quit", 1, 5)
         match (search_field):
             case 1:self.search_byline()
-            # case 2:
-            # case 3:
+            case 2:self.search_origin()
+            case 3:self.search_destination()
+            case 4:self.search_bystops()
+            case 5:self.menu_passenger()
 
     def add_delay(self):
-        line = input("please insert the line you would like to report the delay:")
+        line = self.select("please insert the line you would like to report the delay:", 1,1000)
         if not self._company.is_line(line):
             print(f'the line number:{line} does not exist!')
         if self._company.is_line(line):
+            print("this is the information for line {line}: ")
+            print(self._company.broute(line))
+            id = int(input('enter the bus ride id from the list above: '))
             delay = int(input("please enter the number of minutes of the delay: "))
+            print(f"thank you for adding delay for line number {line}, id: {id}!")
+            return self._company.broute(line).add_delay(delay,id)
 
+
+
+    def search_origin(self):
+        origin = input("please insert the origin would like to search: ")
+        for l in self._company.search_origin(origin):
+            print(self._company.display_route_by(l))
+
+    def search_destination(self):
+        destination = input("please insert the destination would like to search: ")
+        for l in self._company.search_destination(destination):
+            print(self._company.display_route_by(l))
 
     def search_byline(self):
-        line_number = input("please insert the line you would like to search: ")
-        if not self._company.is_line(line_number):
-            print(f'the line number:{line_number} does not exist!')
-        if self._company.is_line(line_number):
-            self._company.broute(line_number).search_line_num(line_number)
+        line_number = int(input("please insert the line you would like to search: "))
+        print(self._company.display_route_by(line_number))
+
+    def search_bystops(self):
+        station = input("please insert the station you would like to search by: ")
+        for l in self._company.search_station(station):
+            print(self._company.display_route_by(l))
+
+
+
+
+
+
+
