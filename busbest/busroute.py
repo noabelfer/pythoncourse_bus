@@ -24,14 +24,14 @@ class BusRoute:
 
 
 
-    def search_origin(self, origin) ->int:
+    def search_origin(self, origin) -> bool:
         return self.origin == origin
 
-    def search_destination(self, destination) ->int:
+    def search_destination(self, destination) -> bool:
         return self.destination == destination
 
-    def search_station(self, station) -> int:
-        return self.list_stops == station
+    def search_station(self, station) -> bool:
+        return station in self.list_stops
 
     def add_delay(self, delay_min):
         return self._bus_schedule[id].add_delay(delay_min)

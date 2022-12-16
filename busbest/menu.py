@@ -49,7 +49,7 @@ class Bus:
                 case 3: self.update_route()
                 case 4: self.add_schedule()
                 case 5: self.company_info()
-                case 6: self.top_menu()
+                case 6: return
 
 
     def add_route(self):
@@ -106,7 +106,7 @@ class Bus:
 
     #presents all the info on all routes and schedules:
     def company_info(self):
-        print(self._company.display_c())
+        print(self._company.BusRoute())
 
 
     def menu_passenger(self):
@@ -123,7 +123,7 @@ class Bus:
             case 2:self.search_origin()
             case 3:self.search_destination()
             case 4:self.search_bystops()
-            case 5:self.menu_passenger()
+            case 5:return
 
     def add_delay(self):
         line = self.select("please insert the line you would like to report the delay:", 1,1000)

@@ -52,7 +52,6 @@ class BestBusCompany:
     def search_station(self, station) -> list:
         stops_lst = []
         for line in self.__bus_route:
-            for station in self.__bus_route[line].
             if self.__bus_route[line].search_station(station):
                 stops_lst.append(line)
         return stops_lst
