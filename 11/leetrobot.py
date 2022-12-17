@@ -1,13 +1,5 @@
 
-def judgeCircle( moves: str) -> bool:
-    lst = []
-    for letter in moves:
-        lst.append(letter)
-    print(lst)
-    if (lst.count('U') != lst.count('D')) or (lst.count('R') != lst.count('L')):
-        return False
-    else:
-        return True
-
-a = judgeCircle('LRU')
-print(a)
+class Solution:
+    def judgeCircle(self, moves: str) -> bool:
+        if moves.count('U') == moves.count('D') and moves.count('R') == moves.count('L'):
+            return True
