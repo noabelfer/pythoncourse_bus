@@ -49,7 +49,6 @@ class Bus:
                 case 5: self._company_info()
                 case 6: return
 
-
     def _add_route(self):
         line = self._select("please enter line number: ", 1, 1000)
         add = input("please type origin, destination and stops, comma seperated: ")

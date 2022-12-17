@@ -40,6 +40,7 @@ class BestBusCompany:
             print('no such line number')
             return
 
+
     def _update_route(self, origin, destination, list_stops: list):
         # for BusRoute[line_number]:
         self._origin = origin

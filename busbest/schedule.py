@@ -2,6 +2,7 @@ from datetime import time
 import random
 
 
+
 class ScheduledRides:
     def __init__(self, _origin_time:str, _destination_time:str, _driver_name:str, _delays = None):
         self._id = id
