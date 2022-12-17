@@ -1,4 +1,4 @@
-import datetime
+from datetime import time
 import random
 
 from busbest import schedule
@@ -16,7 +16,7 @@ class BusRoute:
 
 
     def __str__(self) -> str:
-        return f'line_number: {self._line_number} \n origin: {self.origin} \n destination: {self.destination} \n list_stops: {self.list_stops} \n bus_schedule: {self._bus_schedule}'
+        return f'line_number: {self._line_number} \n origin: {self.origin} \n destination: {self.destination} \n list_stops: {self.list_stops} \n bus_schedule: {self._bus_schedule.__repr__()}'
 
 
     def __repr__(self):
@@ -46,6 +46,8 @@ class BusRoute:
         for s in self._bus_schedule:
             print(self._bus_schedule[s])
 
+    def present_sched(self):
+        return self._bus_schedule
 
     # def update_route(self, origin, destination, list_stops:list):
     #     # for BusRoute[line_number]:
@@ -56,7 +58,7 @@ class BusRoute:
 
 
     #adds the object to self._bus_schedule = {}
-    def add_schedule(self, origin_time:int, destination_time:int, driver_name:str):
+    def add_schedule(self, origin_time:time, destination_time:time, driver_name:str):
         s = schedule.ScheduledRides(origin_time, destination_time, driver_name)
         id:int = int(random.randrange(1,1000))
         self._bus_schedule[id] = origin_time, destination_time, driver_name
@@ -67,23 +69,23 @@ class BusRoute:
         self._bus_schedule[id] = delay
 
 
-    def get_sc_dict(self):
-        print(self._bus_schedule)
+    # def get_sc_dict(self):
+    #     print(self._bus_schedule.__class_getitem__(ScheduledRides.__repr__()))
 
 
 # a = BusRoute(5,'telaviv', 'ramm', ['aaa','bbb'])
-# # b = BusRoute(5,'telaviv', 'ramm', ['aaa','bbb'])
-# # c = BusRoute(5,'bal', 'rm', ['aaa','bbb'])
+# # # b = BusRoute(5,'telaviv', 'ramm', ['aaa','bbb'])
+# # # c = BusRoute(5,'bal', 'rm', ['aaa','bbb'])
 # a.add_schedule(3,4,'noa')
 # print(a.add_delay(4,5))
-# print(a.__str__())
+# print(a.__repr__())
 # a.add_schedule(4,5,'noaded')
 # print(a.get_schedule())
 #
 # a.add_schedule(9,11,'noa')
 # # a.search_route('origin', 'tkklko')
 #
-# print(a.get_dict(9,11,'noa'))
+# print(a.get_sc_dict())
 
 # print(a.my_s_dict)
 # a.__str__()

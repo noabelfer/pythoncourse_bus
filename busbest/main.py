@@ -1,5 +1,6 @@
 import os
-
+import time
+import datetime
 import menu
 from busbest import best_bus
 import pickle
@@ -14,7 +15,7 @@ if __name__ == '__main__':
         with open('company.pickle', 'rb') as fh:
             company = pickle.load(fh)
 
-
+    print("Hello and welcome to BestBusCompany!!")
     b = menu.Bus(company)
     b.top_menu()
     # company.add_route(1,'gtv','nui','ijo')

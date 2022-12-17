@@ -1,5 +1,6 @@
 from busbest import best_bus
-
+import time
+import datetime
 
 class Bus:
     def __init__(self, company: best_bus.BestBusCompany):
@@ -21,12 +22,10 @@ class Bus:
 
     def top_menu(self) :
         men1 = self.select ("[1] for Manager type 1 \n[2] for Passenger type 2" ,1 ,2)
-
         if men1 == 1:
             if not self.password():
                 return
             self.menu_manager()
-
         if men1 ==2:
             self.menu_passenger()
 
@@ -74,19 +73,35 @@ class Bus:
             if q != 'y':
                 print('no line has been deleted!')
                 return
-            self._company.delete_route(line_to_del)
             print(f'line {line_to_del} has been deleted!')
+            self._company.delete_route(line_to_del)
+
+
+    def str_2_time(self, timein: str) -> time:
+        try:
+            if (timein.count(':') == 1):
+                mystr = timein + ':00'
+            else:
+                mystr = timein
+            date_time_obj = time.strptime(mystr, '%H:%M:00')
+            print(date_time_obj)
+            return date_time_obj.time()
+        except ValueError:
+            return None
+
 
     def add_schedule(self):
         line_number = self.select("please select the line you would like to add schedule to: ", 1, 1000)
         if self._company.is_line(line_number):
-            add_s = input("please add the origin time, destination time and driver name, comma seperated: ")
+            add_s = input("please add the origin time(format HH:MM:SS), destination time (format HH:MM:SS) and driver name, comma seperated: ")
             sch = add_s.split(',')
             if len(sch) != 3:
                 return
-            origin_time,  destination_time, driver_name  = sch[0], sch[1], sch[2]
+            driver_name  = sch[2]
+            origin_time = self.str_2_time(sch[0])
+            destination_time = self.str_2_time(sch[1])
             print("the schedule has been added to the route!")
-            self._company.broute(line_number).add_schedule(origin_time, destination_time, driver_name)
+            self._company.display_route_by(line_number).add_schedule(origin_time, destination_time, driver_name)
 
 
     def update_route(self):
@@ -106,7 +121,7 @@ class Bus:
 
     #presents all the info on all routes and schedules:
     def company_info(self):
-        print(self._company.BusRoute())
+        print(self._company.display_route())
 
 
     def menu_passenger(self):
@@ -130,12 +145,12 @@ class Bus:
         if not self._company.is_line(line):
             print(f'the line number:{line} does not exist!')
         if self._company.is_line(line):
-            print("this is the information for line {line}: ")
-            print(self._company.broute(line))
+            print(f'this is the information for line: {line}: ')
+            print(self._company.display_route_by(line))
             id = int(input('enter the bus ride id from the list above: '))
             delay = int(input("please enter the number of minutes of the delay: "))
             print(f"thank you for adding delay for line number {line}, id: {id}!")
-            return self._company.broute(line).add_delay(delay,id)
+            return self._company.display_route_by(line).add_delay(delay,id)
 
 
 

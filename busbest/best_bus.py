@@ -8,9 +8,12 @@ class BestBusCompany:
     def __init__(self):
         self.__bus_route: {classmethod} = {}
 
-    #when adding schedule, returns bus route object:
-    def broute(self, line: int) -> busroute:
-        return self.__bus_route[line]
+    # #when adding schedule, returns bus route object:
+    # def broute(self, line: int) -> busroute:
+    #     return self.__bus_route[line]
+
+    def present_sched(self, line_number):
+        return self.__bus_route[line_number].present_sched()
 
     def display_c(self):
         return self.__bus_route
@@ -18,7 +21,7 @@ class BestBusCompany:
     def display_route_by(self, line_number):
         return self.__bus_route[line_number]
 
-
+    #diaplays all company info
     def display_route(self):
         print(self.__bus_route)
 
@@ -85,12 +88,14 @@ class BestBusCompany:
 #
 # company = BestBusCompany()
 # company.add_route(4,'telaviv','raanana',['aaa','bbb'])
+
 # company.add_route(6,'telaviv','raanana',['aah','jbb'])
 # company.broute(4).add_schedule(9,10,"Moshe")
 # # print(company.display_route_by(4))
 # print(company.search_origin('telaviv'))
 
-# company.broute(4).add_schedule(9,10,"Moshe")
+# company.display_route_by(4).add_schedule(12, 13 ,"Moshe")
+# print(company.present_sched(4))
 # company.broute(4).update_route('yy','bb',['mk','dr','se'])
 # print(company.display_c())
 # # company.search_items_val('origin', 'telaviv')

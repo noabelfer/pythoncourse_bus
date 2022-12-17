@@ -1,9 +1,9 @@
-from datetime import datetime
+from datetime import time
 import random
 
 
 class ScheduledRides:
-    def __init__(self, origin_time:int, destination_time:int, driver_name:str, delays = None):
+    def __init__(self, origin_time:time, destination_time:time, driver_name:str, delays = None):
         self.id = id
         self.origin_time = origin_time
         self.destination_time = destination_time
@@ -11,7 +11,7 @@ class ScheduledRides:
         self.delays:list = delays
 
     def __str__(self):
-        return f'id:{self.id} origin_time:{self.origin_time} destination_time:{self.destination_time} driver name: {self.driver_name}'
+        return f'id:{self.id} origin_time:{self.origin_time} destination_time:{self.destination_time} '
 
     def __repr__(self):
         return f'id:{self.id} origin_time:{self.origin_time} destination_time:{self.destination_time}'
