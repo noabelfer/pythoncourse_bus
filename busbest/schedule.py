@@ -3,29 +3,29 @@ import random
 
 
 class ScheduledRides:
-    def __init__(self, origin_time:time, destination_time:time, driver_name:str, delays = None):
-        self.id = id
-        self.origin_time = origin_time
-        self.destination_time = destination_time
-        self.driver_name = driver_name
-        self.delays:list = delays
+    def __init__(self, _origin_time:str, _destination_time:str, _driver_name:str, _delays = None):
+        self._id = id
+        self._origin_time = _origin_time
+        self._destination_time = _destination_time
+        self._driver_name = _driver_name
+        self._delays:list = _delays
 
     def __str__(self):
-        return f'id:{self.id} origin_time:{self.origin_time} destination_time:{self.destination_time} '
+        return f'id:{self._id} \n origin_time:{self._origin_time} \n destination_time:{self._destination_time} '
 
     def __repr__(self):
-        return f'id:{self.id} origin_time:{self.origin_time} destination_time:{self.destination_time}'
+        return f'id:{self._id} \n origin_time:{self._origin_time} \n destination_time:{self._destination_time}'
 
     def get_dict_s(self):
         s_dict = {}
-        s_dict['origin_time'] = self.origin_time
-        s_dict['destination_time'] = self.destination_time
-        s_dict['delays'] = self.delays
+        s_dict['origin_time'] = self._origin_time
+        s_dict['destination_time'] = self._destination_time
+        s_dict['delays'] = self._delays
         return s_dict
 
-    #
-    def add_delay(self, delay_min):
-        self.delays.append(delay_min)
+
+    def _add_delay(self, delay_min):
+        self._delays.append(delay_min)
 
 
 

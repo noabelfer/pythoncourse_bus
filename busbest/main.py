@@ -17,10 +17,8 @@ if __name__ == '__main__':
 
     print("Hello and welcome to BestBusCompany!!")
     b = menu.Bus(company)
-    b.top_menu()
-    # company.add_route(1,'gtv','nui','ijo')
-    # company.broute(1).add_schedule(3,4,'noa')
-    # company.display_c()
+    b._top_menu()
+
 
 
     file = open('company.pickle', 'wb')
