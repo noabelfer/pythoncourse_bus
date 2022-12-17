@@ -19,7 +19,6 @@ class Bus:
                 continue
             return b
 
-
     def _top_menu(self) :
         men1 = self._select ("[1] for Manager type 1 \n[2] for Passenger type 2" ,1 ,2)
         if men1 == 1:

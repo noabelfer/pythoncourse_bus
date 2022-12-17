@@ -15,10 +15,9 @@ if __name__ == '__main__':
         with open('company.pickle', 'rb') as fh:
             company = pickle.load(fh)
 
-    print("Hello and welcome to BestBusCompany!!")
+    print("=====Hello and welcome to BestBusCompany!=====")
     b = menu.Bus(company)
     b._top_menu()
-
 
 
     file = open('company.pickle', 'wb')

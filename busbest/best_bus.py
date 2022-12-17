@@ -14,6 +14,7 @@ class BestBusCompany:
     def _display_c(self):
         return self._bus_route
 
+    #displays route info by line number
     def _display_route_by(self, line_number):
         return self._bus_route[line_number]
 
@@ -79,20 +80,7 @@ class BestBusCompany:
 
     def _add_delay(self, delay_min, id):
         return self._bus_route._add_delay(delay_min,id)
-#
-# company = BestBusCompany()
-# company._add_route(4,'telaviv','raanana',['aaa','bbb'])
-# #
-# # company._add_route(6,'telaviv','raanana',['aah','jbb'])
-# company._display_route_by(4)._add_schedule(9,10,"Moshe")
-# # print(company._display_route_by(4))
-# # print(company._search_origin('telaviv'))
-# print(company._present_sched(4))
-# company._bus_route._add_schedule(12, 13 ,"Moshe")
-# print(company._present_sched(4))
-# company.broute(4).update_route('yy','bb',['mk','dr','se'])
-# print(company.display_c())
-# # company.search_items_val('origin', 'telaviv')
+
 
 
 

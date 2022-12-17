@@ -33,16 +33,11 @@ class BusRoute:
     def _search_station(self, station) -> bool:
         return station in self._list_stops
 
-    # def _add_delay(self, delay_min):
-    #     return self._bus_schedule[id]._add_delay(delay_min)
 
     #adds delay to list of delays in self._bus_schedule by schedule class:
     def _add_delay(self, delay, id):
         # d = schedule.ScheduledRides(delays)
         self._bus_schedule[id] = delay
-
-    # def get_schedule(self):
-    #     return self._bus_schedule
 
     def _display_r(self):
         print(self.__str__())
@@ -51,13 +46,6 @@ class BusRoute:
 
     def _present_sched(self):
         return self._bus_schedule.__repr__()
-
-    # def update_route(self, origin, destination, list_stops:list):
-    #     # for BusRoute[line_number]:
-    #     self.origin = origin
-    #     self.destination= destination
-    #     self.list_stops = list_stops
-
 
 
     #adds the object to self._bus_schedule = {}
@@ -70,33 +58,6 @@ class BusRoute:
         print(self._bus_schedule._origin)
 
 
-# a = BusRoute(5,'telaviv', 'ramm', ['aaa','bbb'])
-# # # # b = BusRoute(5,'telaviv', 'ramm', ['aaa','bbb'])
-# # # # c = BusRoute(5,'bal', 'rm', ['aaa','bbb'])
-# a._add_schedule(3,4,'noa')
-# print(a._add_delay(4,5))
-
-# a.add_schedule(4,5,'noaded')
-# print(a.get_schedule())
-#
-# a.add_schedule(9,11,'noa')
-# # a.search_route('origin', 'tkklko')
-#
-# print(a.get_sc_dict())
-
-# print(a._get_sc_dict())
-# a.__str__()
-# #
-# for i in d['bus_schedule']:
-#     a.add_delay(i,5)
-# print(a.get_dict(),'ooo')
-# a.display_r()
 
 
 
-
-# a.search_route('origin', 'telaviv')
-
-# print(a)
-# a.add_schedule(9,10,'noa')
-# s.search('origin','telaviv')
