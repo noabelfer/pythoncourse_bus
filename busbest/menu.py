@@ -32,7 +32,7 @@ class Bus:
     def _password(self) -> bool:
         for i in range (0,3):
             p = input("please enter password here:  ")
-            if p == "RideWithUs!":
+            if p == "3":
                 return True
         print('password is incorrect')
         return False
@@ -47,7 +47,7 @@ class Bus:
                 case 3: self._update_route()
                 case 4: self._add_schedule()
                 case 5: self._company_info()
-                case 6: return
+                case 6: self._get_origin()
 
     def _add_route(self):
         line = self._select("please enter line number: ", 1, 1000)
@@ -164,7 +164,10 @@ class Bus:
 
 
 
-
-
-
-
+    def _get_origin(self):
+        line = int(input('line'))
+        id = int(input('id'))
+        print(self._company._display_route_by(line)._get_schedule(id).__repr__())
+        # id = int(input('id'))
+        # line = int(input('line'))
+        # print(self._company._display_route_by(line)._get_schedule(id)._get_origin())

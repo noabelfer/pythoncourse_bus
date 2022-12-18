@@ -86,6 +86,13 @@ class BestBusCompany:
 
 
 
+# company = BestBusCompany()
+# company._add_route(2,'tekl','raa',['nnj','mijmi'])
+# company._display_route_by(2)._add_schedule(6,8,'noa')
+# print(company._display_route_by(2).
+# # print(company._display_route_by(2)._get_schedule(2))
+
+
 
 
 

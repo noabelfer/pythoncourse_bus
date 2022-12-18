@@ -50,9 +50,10 @@ class BusRoute:
 
 
     #adds the object to self._bus_schedule = {}
-    def _add_schedule(self, origin_time:str, destination_time:str, driver_name:str):
+    def _add_schedule(self, origin_time:str, destination_time:str, driver_name:str)->dict:
         id:int = int(random.randrange(1,1000))
-        self._bus_schedule[id] = origin_time, destination_time, driver_name
+        s = ScheduledRides(origin_time,destination_time,driver_name)
+        self._bus_schedule[id] = s
 
 
     def _get_sc_dict(self):
@@ -60,5 +61,7 @@ class BusRoute:
 
 
 
-
+    def _get_schedule(self,schedule_id):
+        # print(self._bus_schedule[schedule_id],'fff')
+        return self._bus_schedule[schedule_id]
 
