@@ -4,7 +4,7 @@ import datetime
 class Person:
 
     def __init__(self, person_id: str, name: str, address: str, phone: str):
-        self.id = person_id
+        self.iid = person_id
         self.name = name
         self.address = address
         self.phone = phone

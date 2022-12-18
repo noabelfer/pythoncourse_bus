@@ -47,7 +47,7 @@ class Bus:
                 case 3: self._update_route()
                 case 4: self._add_schedule()
                 case 5: self._company_info()
-                case 6: self._get_origin()
+                case 6: return
 
     def _add_route(self):
         line = self._select("please enter line number: ", 1, 1000)
@@ -132,7 +132,7 @@ class Bus:
         if self._company.is_line(line):
             print(f'this is the information for line: {line}: ')
             print(self._company._display_route_by(line))
-            id = int(input('enter the bus ride id from the list above: '))
+            iid = int(input('enter the bus ride id from the list above: '))
             delay = int(input("please enter the number of minutes of the delay: "))
             print(f"thank you for adding delay for line number {line}, id: {id}!")
             return self._company._display_route_by(line)._add_delay(delay,id)
@@ -164,10 +164,3 @@ class Bus:
 
 
 
-    def _get_origin(self):
-        line = int(input('line'))
-        id = int(input('id'))
-        print(self._company._display_route_by(line)._get_schedule(id).__repr__())
-        # id = int(input('id'))
-        # line = int(input('line'))
-        # print(self._company._display_route_by(line)._get_schedule(id)._get_origin())

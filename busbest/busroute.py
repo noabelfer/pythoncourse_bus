@@ -23,7 +23,6 @@ class BusRoute:
         return self.__str__()
 
 
-
     def _search_origin(self, origin) -> bool:
         return self._origin == origin
 
@@ -45,8 +44,8 @@ class BusRoute:
         for s in self._bus_schedule:
             print(self._bus_schedule[s])
 
-    def _present_sched(self):
-        return self._bus_schedule.__repr__()
+    # def _present_sched(self):
+    #     return self._bus_schedule.__repr__()
 
 
     #adds the object to self._bus_schedule = {}
@@ -55,13 +54,11 @@ class BusRoute:
         s = ScheduledRides(origin_time,destination_time,driver_name)
         self._bus_schedule[id] = s
 
-
-    def _get_sc_dict(self):
-        print(self._bus_schedule._origin)
-
+    # def _get_sc_dict(self):
+    #     print(self._bus_schedule._origin)
 
 
-    def _get_schedule(self,schedule_id):
-        # print(self._bus_schedule[schedule_id],'fff')
-        return self._bus_schedule[schedule_id]
+    # def _get_schedule(self,schedule_id):
+    #     # print(self._bus_schedule[schedule_id],'fff')
+    #     return self._bus_schedule[schedule_id]
 
