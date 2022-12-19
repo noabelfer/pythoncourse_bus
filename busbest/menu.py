@@ -32,7 +32,7 @@ class Bus:
     def _password(self) -> bool:
         for i in range (0,3):
             p = input("please enter password here:  ")
-            if p == "3":
+            if p == "RideWithUs!":
                 return True
         print('password is incorrect')
         return False
