@@ -7,10 +7,33 @@ import datetime
 
 # (3,130, jacob)
 
-def minutes(hour:str) -> float:
-    minutes : datetime.timedelta = datetime.datetime.strptime(hour, "%Hh %Mm") - \
-                                    datetime.datetime(year = 1900, month = 1, day = 1)
-    return(minutes.total_seconds() // 60)
+# def minutes(bus:dict) -> int:
+#     m_sum = 0
+#     for delay in bus['delays']:
+#         m = delay.split()
+#         for a in m:
+#             if 'h' in a:
+#                 m_sum += int(a[:a.index('h')]) * 60
+#             if 'm' in a:
+#                 m_sum += int(a[:a.index('m')])
+#     return m_sum
+
+
+
+def minutes(bus: dict):
+    delay_sum = 0
+    for delay in bus['delays']:
+        d = delay.split()
+        for ts in d:
+            if 'h' in ts:
+                delay_sum += int(ts[:ts.index('h')]) * 60
+            if 'm' in ts:
+                delay_sum += int(ts[:ts.index('m')])
+    return -delay_sum
+
+    # minutes : datetime.timedelta = datetime.datetime.strptime(hour, "%Hh %Mm") - \
+    #                                 datetime.datetime(year = 1900, month = 1, day = 1)
+    # return(minutes.total_seconds() // 60)
 
 def status(status:str) ->int:
     return len(status)
@@ -22,11 +45,6 @@ def func(bus_dict:dict) -> tuple:
     for t in bus_dict["delays"]:
         time_sum += minutes(t)
     return(s,time_sum,name)
-
-
-
-
-
 
 
 
