@@ -1,5 +1,4 @@
-from table_exceptions import *
-import system_dad
+import tablesys
 
 def onGuestsArrived(guests_num):
     available_tables = japanika.get_available_tables(guests_num)
@@ -17,27 +16,21 @@ def onGuestsArrived(guests_num):
 
 if __name__ == '__main__':
     # create a system for japanika
-    japanika = system_dad.TableReservationSystem([3, 5, 2, 2, 6, 4, 3, 6], 'Japanika')
+    japanika = tablesys.TableReservationSystem([3, 5, 2, 2, 6, 4, 3, 6], 'Japanika')
 
-    # table_5 = onGuestsArrived(5)
-    # onGuestsArrived(2)
-    # onGuestsArrived(6)
-    # onGuestsArrived(5)
-    #
-    # # no available tables left for 5
-    # onGuestsArrived(5)
-    # # there are still available table for 4
-    # onGuestsArrived(4)
-    # # a table with 5 guests is available now
-    # japanika.release(table_5)
-    # # now it is possible to reserve a table for 5 again
-    # onGuestsArrived(5)
+    table_5 = onGuestsArrived(5)
+    onGuestsArrived(2)
+    onGuestsArrived(6)
+    onGuestsArrived(5)
 
-    try:
-
-        japanika.get_available_tables(2)
-    except TableExceptions as e:
-        print(e)
+    # no available tables left for 5
+    onGuestsArrived(5)
+    # there are still available table for 4
+    onGuestsArrived(4)
+    # a table with 5 guests is available now
+    japanika.release(table_5)
+    # now it is possible to reserve a table for 5 again
+    onGuestsArrived(5)
 
 
 

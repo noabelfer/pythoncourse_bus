@@ -17,34 +17,44 @@ import datetime
 #             if 'm' in a:
 #                 m_sum += int(a[:a.index('m')])
 #     return m_sum
+#
+# def get_total_delay_mins(bus: dict):
+#     delay_sum = 0
+#     for delay in bus['delays']:
+#         d = delay.split()
+#         for ts in d:
+#             if 'h' in ts:
+#                 delay_sum += int(ts[:ts.index('h')]) * 60
+#             if 'm' in ts:
+#                 delay_sum += int(ts[:ts.index('m')])
+#
+#     return -delay_sum
 
-
-
-def minutes(bus: dict):
-    delay_sum = 0
-    for delay in bus['delays']:
-        d = delay.split()
-        for ts in d:
-            if 'h' in ts:
-                delay_sum += int(ts[:ts.index('h')]) * 60
-            if 'm' in ts:
-                delay_sum += int(ts[:ts.index('m')])
-    return -delay_sum
+# def minutes(bus: dict):
+#     delay_sum = 0
+#     for delay in bus['delays']:
+#         d = delay.split()
+#         for ts in d:
+#             if 'h' in ts:
+#                 delay_sum += int(ts[:ts.index('h')]) * 60
+#             if 'm' in ts:
+#                 delay_sum += int(ts[:ts.index('m')])
+#     return -delay_sum
 
     # minutes : datetime.timedelta = datetime.datetime.strptime(hour, "%Hh %Mm") - \
     #                                 datetime.datetime(year = 1900, month = 1, day = 1)
     # return(minutes.total_seconds() // 60)
 
-def status(status:str) ->int:
-    return len(status)
-
-def func(bus_dict:dict) -> tuple:
-    s = status(bus_dict["status"])
-    name = bus_dict["name"]
-    time_sum = 0
-    for t in bus_dict["delays"]:
-        time_sum += minutes(t)
-    return(s,time_sum,name)
+# def status(status:str) ->int:
+#     return len(status)
+#
+# def func(bus_dict:dict) -> tuple:
+#     s = status(bus_dict["status"])
+#     name = bus_dict["name"]
+#     time_sum = 0
+#     for t in bus_dict["delays"]:
+#         time_sum += get_total_delay_mins(t)
+#     return(s,time_sum,name)
 
 
 
@@ -83,4 +93,19 @@ buses = [
 
 
 
-print(sorted(buses, key = func))
+# print(sorted(buses, key = func))
+
+def get_total_delay_mins(bus: dict):
+    delay_sum = 0
+    for delay in bus['delays']:
+        d = delay.split()
+        for ts in d:
+            if 'h' in ts:
+                delay_sum += int(ts[:ts.index('h')]) * 60
+            if 'm' in ts:
+                delay_sum += int(ts[:ts.index('m')])
+
+    return -delay_sum
+
+
+print(sorted(buses, key=lambda bus: (len(bus['status']), get_total_delay_mins, bus['name']), reverse=True))
