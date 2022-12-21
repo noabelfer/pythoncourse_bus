@@ -1,8 +1,8 @@
 
 def c(list_1):
     my_dict = {}
-    for i,v in enumerate(list_1):
-        my_dict[i+1] =v
+    for f in list_1:
+        my_dict[f] =list_1.count(f)
     return my_dict
 
 
