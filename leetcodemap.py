@@ -1,13 +1,15 @@
 # Input: mat = [[1,2],[3,4]], r = 1, c = 4
 # Output: [[1,2,3,4]]
-import numpy as np
-from numpy import reshape
+
+import matlab
+from numpy import *
 
 
 # class Solution:
 def matrixReshape( mat: list[list[int]], r: int, c: int) -> list[list[int]]:
     count = 0
     newlist = []
+    newlist1 = []
     for element in mat:
         count += len(element)
     print(count)
@@ -16,25 +18,20 @@ def matrixReshape( mat: list[list[int]], r: int, c: int) -> list[list[int]]:
         print(mat)
         return mat
     else:
-        mat = np.array(mat)
-        print(mat)  # Output: [[1 2 3]
-        #          [4 5 6]]
-
-        # Reshape the matrix
-        r = 2
-        c = 3
-        reshaped_mat = reshape(mat, r, c)
-
-
         for element in mat:
             for n in element:
                 newlist.append(n)
-                print(newlist)
-                return newlist
+        print(newlist)
+        print(newlist1)
+        newlist1 = reshape(newlist, r, c)
+
+        print(newlist1)
 
 
 
-a = matrixReshape( mat = [[1,2],[3,4]], r = 1, c = 4)
+
+
+a = matrixReshape( mat = [[1,2],[3,4]], r = 4, c = 1)
 # Output: [[1,2],[3,4]]
 print (a)
 

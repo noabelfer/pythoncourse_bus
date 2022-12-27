@@ -27,7 +27,9 @@ with open(infile, newline='') as csvfile:
             year = row[0].split('-')[2]
             # Here we check if the year has changed 
             if(year != pre_year):
-                # adding year entry to data dictionay 
+                # adding year entry to data dictionay
+                with open('new_file.csv', mode='w', newline='') as csv_file:
+                    writer = csv.writer(csv_file)
                 dict[year] = {'lowpriice':  [],'highprice':[],'volume':[]}
                 pre_year = year
             #appending data to year entry

@@ -11,6 +11,7 @@ class DateIterator:
     def __init__(self, date: str):
         self.date = datetime.strptime(date, "%d-%m-%Y").date()
         self.days_in_month = monthrange(self.date.year, self.date.month)[1]
+        print(self.days_in_month)
 
 
     def __iter__(self):
@@ -29,6 +30,7 @@ try:
     date = input("insert date")
     for c in DateIterator(date):
         print(c)
+
 except Exception:
     print(" ")
 

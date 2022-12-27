@@ -13,17 +13,23 @@ class CocktailIdeas:
         :param str
         :return list of relevant cocktails
         """
-
-        response = requests.get(f"https://www.thecocktaildb.com/api/json/v1/1/filter.php?i={ingredient}")
+        try:
+            response = requests.get(f"https://www.thecocktaildb.com/api/json/v1/1/filter.php?i={ingredient}")
         #make sure response is legitimate
+            print(response,'gyuigiyui', response.status_code)
+        except exceptions.NoCocktail:
+            print('wrong input')
+            raise exceptions.NoCocktail()
 
         if response.status_code >= 400:
-            raise Exceptions.PageNotFound
+            raise exceptions.PageNotFound()
         try:
             cocktail_dict = response.json()
-        except:
-            raise Exceptions.EmptyPage
+        except Exception:
+            raise exceptions.InvalidInput('wrong input')
+
         cocktail_menu = [cocktail_dict['drinks'][i]['strDrink'] for i in range(len(cocktail_dict['drinks']))]
+        print(cocktail_menu)
 
         return cocktail_menu
 
@@ -35,7 +41,7 @@ class CocktailIdeas:
             collated_menu = collated_menu&list_of_menus[i]
 
         if len(collated_menu) == 0:
-            raise Exceptions.NoCocktail
+            raise exceptions.NoCocktail(self.ingredients)
 
         return list(collated_menu)
 
@@ -54,7 +60,7 @@ class CocktailIdeas:
         if int(cocktail_num) in range(len(self.menu)):
             self.cocktail_name = self.menu[int(cocktail_num)][1]
         else:
-            raise Exceptions.InvalidInput
+            raise exceptions.InvalidInput
         return self.cocktail_name
 
     def create_recipe(self):
@@ -64,7 +70,7 @@ class CocktailIdeas:
         response = requests.get(f"https://www.thecocktaildb.com/api/json/v1/1/search.php?s={self.cocktail_name}")
 
         if response.status_code >= 400:
-            raise Exceptions.PageNotFound
+            raise exceptions.PageNotFound()
 
         #reach relevant dictionary
         drinks_dict = response.json()['drinks'][0]

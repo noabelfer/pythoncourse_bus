@@ -5,4 +5,5 @@ class PageNotFound(Exception):
 class EmptyPage(Exception):
     pass
 class NoCocktail(Exception):
-    pass
+    def __init__(self, ingredients):
+        self.ingredients = ingredients
