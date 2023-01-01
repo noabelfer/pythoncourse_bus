@@ -10,7 +10,11 @@ class Csvmanage:
     def __init__(self, path):
         self._data_dict_years = {}
         self._path = path
+        self.__filename = os.path.basename(path)
         self._file_exist:bool = os.path.exists(path)
+        self._dir_path:str = self._path.replace(self.__filename,'')
+        self.__filename = os.path.basename(path)
+        self.__filename = self.__filename.replace('.csv','')
         # self.row_dict = None
         if self._file_exist is False:
             raise ValueError(f'file {path} does not exist')
@@ -29,25 +33,26 @@ class Csvmanage:
     def create_year_file(self, year):
         try:
             print('start year'+ str(year))
+            path = self._dir_path+ self.__filename + '_' + str(year) + '.csv'
             fld_names = list(self._data_dict_years[year][0].keys())
             # print(fld_names)
-            with open(f'AAPL_{year}.csv', 'w') as file:
+            with open(path, 'w') as file:
                 writer = csv.DictWriter(file, fieldnames = fld_names)
                 writer.writeheader()
                 avg = {}
                 # opens a new blank row
                 for key in fld_names:
                     avg[key] = float(0)
-                 # adds the sums of objects to the avg row
+                # adds the sums of objects to the avg row
                 for apple_row in self._data_dict_years[year]:
                     writer.writerow(apple_row)
-                for i in range(1, len(fld_names)):
-                    avg[writer.fieldnames[i]] += float(apple_row[writer.fieldnames[i]])
+                    for i in range(1, len(fld_names)):
+                        avg[writer.fieldnames[i]] += float(apple_row[writer.fieldnames[i]])
                 for key in fld_names:
                     avg[key] /= len(self._data_dict_years[year])
                 writer.writerow(avg)
                 file.close()
-            print('end year' + str(year))
+            print('end year: ' + str(year))
             return year
         except Exception as e:
             return str(year)+'  '+str(e)
@@ -66,6 +71,7 @@ class Csvmanage:
 
 
 if __name__ == '__main__':
-    a = Csvmanage("data/AAPL.csv")
+    a = Csvmanage("/Users/noabelfer/Downloads/AAPL2.csv")
     # a.create_year_file(1980)
     a.run_as_threads()
+
