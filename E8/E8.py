@@ -1,5 +1,5 @@
 import threading
-from threading import Lock
+from threading import *
 
 import lock as lock
 
@@ -16,26 +16,39 @@ class BankAccount:
     def __str__(self):
         return (f'name: {self._holder_name}, account_num: {self._account_num}, balance: {self._balance}')
 
-    # def lock_decorator(func):
-    #     def wrapper(*args, **kwargs):
-    #         with args[0].lock:
-    #             return func(*args, **kwargs)
-    #     return wrapper
+    def lock_decorator_deposit(func):
+        def wrapper(self, amnt):
+            with self.lock:
+                return func
+        return wrapper
 
+    def lock_decorator_withdraw(func):
+        def wrapper(self, amnt):
+            with self.lock:
+                while amnt > int(self._balance):
+                    self.lock.release()
+                    self.lock.acquire()
+                return func
+        return wrapper
+
+
+
+    @lock_decorator_deposit
     def deposit(self, amnt):
-        with self.lock:
-            self._balance += amnt
-            self._transactions.append("deposit")
+        # with self.lock:
+        self._balance += amnt
+        self._transactions.append("deposit")
 
     def get_balance(self):
         return self._transactions
 
+    @lock_decorator_withdraw
     def withdraw(self, amnt):
-        with self.lock:
-            if self._balance < amnt:
-                raise Exception()
-            self._balance -= amnt
-            self._transactions.append("withdraw")
+        # with self.lock:
+        # if self._balance < amnt:
+        #     raise Exception()
+        self._balance -= amnt
+        self._transactions.append("withdraw")
 
 if __name__ == '__main__':
    my_account = BankAccount(123456, "Israel Israeli")
