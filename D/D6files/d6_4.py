@@ -16,4 +16,4 @@ def json2csv(file_path_json, file_path_csv):
             writer.writerow((key, value))
     # print(data)
 
-a = json2csv("/Users/noabelfer/Downloads/sample2.json",'D6files')
+a = json2csv("/Users/noabelfer/Downloads/sample2.json", 'D6files')
