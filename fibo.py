@@ -11,9 +11,8 @@
 def countBinarySubstrings(s: str) -> int:
     counter = 0
     for i in s:
-        if ('1' and '0' in i) and s.count(i) >1:
+        if (i.count('1') == i.count('0')):
             counter += 1
-            continue
         else:
             return counter
 
