@@ -1,8 +1,11 @@
 import argparse
 import base64
+import concurrent
 import json
 import os
 import pickle
+import threading
+from concurrent.futures import ThreadPoolExecutor
 from datetime import timedelta, datetime, time
 import time
 import requests
@@ -15,21 +18,32 @@ class VT:
         self.urls:tuple = url
         self.apikey = apikey
         self.cache = {}
+        self.lock = threading.Lock()
+
 
     def load_cache(self):
+        self.lock.acquire()
         try:
             with open('pickle.cache.pickle', 'rb') as f:
                 print('load')
                 self.cache = pickle.load(f)
                 f.close()
+                self.lock.release()
         except FileNotFoundError:
             self.cache = {}
+            self.lock.release()
+
 
     def save_cache(self):
         print('save')
-        with open('pickle.cache.pickle', 'wb') as f:
-            pickle.dump(self.cache, f)
-            f.close()
+        self.lock.acquire()
+        try:
+            with open('pickle.cache.pickle', 'wb') as f:
+                pickle.dump(self.cache, f)
+                f.close()
+        finally:
+            self.lock.release()
+
 
 
     def analysis_url(self, url_indx:int) -> dict:
@@ -86,6 +100,16 @@ class VT:
         scan_id = file.get("data").get("id")
         if response.status_code ==200:
             return True
+
+    def run_as_threads(self):
+        futures = []
+        with ThreadPoolExecutor(max_workers=4) as executer:
+            for i in range(len(self.urls)):
+                futures.append(executer.submit(self.analysis_url,i))
+            executer.shutdown()
+        for f in concurrent.futures.as_completed(futures):
+            print(f.result())
+
     # print(response.text)
     # print()
 

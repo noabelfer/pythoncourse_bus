@@ -24,5 +24,5 @@ if (apikey == None):
 
 print('urls: '+str(urls)+' toscan: '+str(toscan) + ' apikey: '+str(apikey))
 a = vt.VT(urls,apikey)
-for i in range(len(urls)):
-    print(a.analysis_url(i))
+
+a.run_as_threads()
