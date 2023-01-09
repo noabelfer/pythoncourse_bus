@@ -3,8 +3,8 @@ import base64
 import json
 import os
 import pickle
-from datetime import *
-
+from datetime import timedelta, datetime, time
+import time
 import requests
 
 class VT:
@@ -30,9 +30,16 @@ class VT:
 
 
     def analysis_url(self) -> dict:
+
         self.load_cache()
         if (self.url in self.cache):
-            return self.cache[self.url]
+            timeepoch = self.cache[self.url]['time']
+            time_analize = datetime.fromtimestamp(timeepoch)
+            now = datetime.now()
+            if now - timedelta(days=180) <= time_analize <= now:
+                print('getting the info from cache')
+                return(self.cache[self.url])
+
         url_id = base64.urlsafe_b64encode(self.url.encode()).decode().strip("=")
         url_base = "https://www.virustotal.com/api/v3/urls/"
         new_url = url_base + url_id
@@ -41,31 +48,20 @@ class VT:
                    }
         # print(os.environ["VT_API"])
         response_anal = requests.get(new_url, headers=headers)
-        file_anal = json.loads(response_anal.text)
+        if response_anal.status_code !=200 or response_anal.text is None:
+            if self.scan():
+                return {}
+            raise Exception('not existing url')
 
+        file_anal = json.loads(response_anal.text)
         data_url = ({'url': self.url,
         'reputation':file_anal.get("data").get("attributes").get("reputation"),
         'time': file_anal.get("data").get("attributes").get("last_analysis_date")})
+
+
         self.cache[self.url]= data_url
         self.save_cache()
         print(data_url)
-
-
-
-
-    def get_analize_from_file(self):
-        with open('pickle.cache.pickle', 'rb') as f:
-            data = pickle.load(f)
-        if self.url not in data:
-            print("not existing url")
-
-        time_analize = datetime.fromtimestamp(self.cache[self.url]['time'])
-        now = datetime.datetime.now()
-        if now - datetime.timedelta(days=180) <= time_analize <= now:
-            print(self.cache[self.url])
-        else:
-            print('information not up to date')
-
 
 
 
@@ -80,6 +76,8 @@ class VT:
 
         response = requests.post(url_vt, data=payload, headers=headers)
         print(response)
+        if response.status_code != 200:
+            raise Exception ('scan failed')
         file = json.loads(response.text)
         scan_id = file.get("data").get("id")
         if response.status_code ==200:
@@ -95,9 +93,18 @@ class VT:
     # print(n)
 
 if __name__ == '__main__':
+    try:
+         d = VT("bjkbjkbk","32cdd325e88f9126cf3fb455b301c3c17761e9b6c4c1fa4577255cedf069b74d")
+         print(d.analysis_url())
+         if d.analysis_url() == {}:
+             time.sleep(1)
+         print(d.analysis_url())
 
-     d = VT("https://postgresapp.com/","32cdd325e88f9126cf3fb455b301c3c17761e9b6c4c1fa4577255cedf069b74d")
-     print(d.analysis_url())
+    except Exception as e:
+        print (str(e))
+
+
+
 #
 #     parser = argparse.ArgumentParser(
 #         prog='virustotal scanner',
