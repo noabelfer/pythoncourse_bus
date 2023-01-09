@@ -9,6 +9,8 @@ class VT:
     def __init__(self, url:str, apikey):
         self.url = url
         self.apikey = apikey
+        self.cache = {}
+
 
     def analysis_url(self) -> dict:
         # print(str(type(self.url)))
@@ -22,14 +24,20 @@ class VT:
         response_anal = requests.get(new_url, headers=headers)
         file_anal = json.loads(response_anal.text)
         #return(f'reputation = {file_anal.get("data").get("attributes").get("reputation")}')
-        data_url = ({self.url:{'url': self.url,
+        data_url = ({'url': self.url,
         'reputation':file_anal.get("data").get("attributes").get("reputation"),
-        'time': file_anal.get("data").get("attributes").get("last_analysis_date")}})
+        'time': file_anal.get("data").get("attributes").get("last_analysis_date")})
 
-        json_data = json.dumps(data_url)
-        with open("data_url.json", "w") as f:
-            f.write(json_data)
-        f.close()
+        self.cache[self.url] =  data_url
+        #json_data = json.dumps(data_url)
+        # with open('data_url.json', "r") as file:
+        #     data = json.load(file)
+        # data[self.url]= data_url
+
+        with open('data_url.json', 'w') as file:
+            json.dump(self.cache, file)
+        file.close()
+        print(self.cache, 'ppp')
         return data_url
 
     def get_analize_from_file(self, url):
@@ -70,9 +78,9 @@ class VT:
 
 if __name__ == '__main__':
 
-    # d = VT("https://cartasense-coldchain.com/","32cdd325e88f9126cf3fb455b301c3c17761e9b6c4c1fa4577255cedf069b74d")
-    # print(analysis_url())
-
+#     d = VT("https://cartasense-coldchain.com/","32cdd325e88f9126cf3fb455b301c3c17761e9b6c4c1fa4577255cedf069b74d")
+#     print(analysis_url())
+#
 #     parser = argparse.ArgumentParser(
 #         prog='virustotal scanner',
 #         description = 'bla bla',
@@ -88,7 +96,7 @@ if __name__ == '__main__':
 #     urls = args.urls
 #     toscan = args.scan
 #     apikey = args.apikey
-# #
+#
 # if (apikey == None):
 #     apikey = "32cdd325e88f9126cf3fb455b301c3c17761e9b6c4c1fa4577255cedf069b74d"
 #
@@ -96,7 +104,9 @@ if __name__ == '__main__':
 
     # print('urls: '+str(urls)+' toscan: '+str(toscan) + ' apikey: '+str(apikey))
     #a = VT(urls[0],apikey)
-    a = VT("https://cartasense-coldchain.com/", "32cdd325e88f9126cf3fb455b301c3c17761e9b6c4c1fa4577255cedf069b74d" )
+    a = VT("https://edulabs.co.il/", "32cdd325e88f9126cf3fb455b301c3c17761e9b6c4c1fa4577255cedf069b74d" )
+    b = VT("https://postgresapp.com/", "32cdd325e88f9126cf3fb455b301c3c17761e9b6c4c1fa4577255cedf069b74d")
     #
-    # print(a.analysis_url())
-    print(a.get_analize_from_file("https://cartasense-coldchain.com"))
+    print(a.analysis_url())
+    print(b.analysis_url())
+    #print(a.get_analize_from_file("https://cartasense-coldchain.com"))
