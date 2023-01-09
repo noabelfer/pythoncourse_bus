@@ -2,8 +2,10 @@ import argparse
 import base64
 import json
 import os
+import pickle
+from datetime import *
+
 import requests
-import sys
 
 class VT:
     def __init__(self, url:str, apikey):
@@ -11,9 +13,26 @@ class VT:
         self.apikey = apikey
         self.cache = {}
 
+    def load_cache(self):
+        try:
+            with open('pickle.cache.pickle', 'rb') as f:
+                print('load')
+                self.cache = pickle.load(f)
+                f.close()
+        except FileNotFoundError:
+            self.cache = {}
+
+    def save_cache(self):
+        print('save')
+        with open('pickle.cache.pickle', 'wb') as f:
+            pickle.dump(self.cache, f)
+            f.close()
+
 
     def analysis_url(self) -> dict:
-        # print(str(type(self.url)))
+        self.load_cache()
+        if (self.url in self.cache):
+            return self.cache[self.url]
         url_id = base64.urlsafe_b64encode(self.url.encode()).decode().strip("=")
         url_base = "https://www.virustotal.com/api/v3/urls/"
         new_url = url_base + url_id
@@ -23,30 +42,29 @@ class VT:
         # print(os.environ["VT_API"])
         response_anal = requests.get(new_url, headers=headers)
         file_anal = json.loads(response_anal.text)
-        #return(f'reputation = {file_anal.get("data").get("attributes").get("reputation")}')
+
         data_url = ({'url': self.url,
         'reputation':file_anal.get("data").get("attributes").get("reputation"),
         'time': file_anal.get("data").get("attributes").get("last_analysis_date")})
+        self.cache[self.url]= data_url
+        self.save_cache()
+        print(data_url)
 
-        self.cache[self.url] =  data_url
-        #json_data = json.dumps(data_url)
-        # with open('data_url.json', "r") as file:
-        #     data = json.load(file)
-        # data[self.url]= data_url
 
-        with open('data_url.json', 'w') as file:
-            json.dump(self.cache, file)
-        file.close()
-        print(self.cache, 'ppp')
-        return data_url
 
-    def get_analize_from_file(self, url):
-        with open("data_url.json") as f:
-            data = json.load(f)
-        if self.url not in data.keys():
-            return print("not existing url")
-        values =  data[url]
-        return values
+
+    def get_analize_from_file(self):
+        with open('pickle.cache.pickle', 'rb') as f:
+            data = pickle.load(f)
+        if self.url not in data:
+            print("not existing url")
+
+        time_analize = datetime.fromtimestamp(self.cache[self.url]['time'])
+        now = datetime.datetime.now()
+        if now - datetime.timedelta(days=180) <= time_analize <= now:
+            print(self.cache[self.url])
+        else:
+            print('information not up to date')
 
 
 
@@ -78,8 +96,8 @@ class VT:
 
 if __name__ == '__main__':
 
-#     d = VT("https://cartasense-coldchain.com/","32cdd325e88f9126cf3fb455b301c3c17761e9b6c4c1fa4577255cedf069b74d")
-#     print(analysis_url())
+     d = VT("https://postgresapp.com/","32cdd325e88f9126cf3fb455b301c3c17761e9b6c4c1fa4577255cedf069b74d")
+     print(d.analysis_url())
 #
 #     parser = argparse.ArgumentParser(
 #         prog='virustotal scanner',
@@ -104,9 +122,19 @@ if __name__ == '__main__':
 
     # print('urls: '+str(urls)+' toscan: '+str(toscan) + ' apikey: '+str(apikey))
     #a = VT(urls[0],apikey)
-    a = VT("https://edulabs.co.il/", "32cdd325e88f9126cf3fb455b301c3c17761e9b6c4c1fa4577255cedf069b74d" )
-    b = VT("https://postgresapp.com/", "32cdd325e88f9126cf3fb455b301c3c17761e9b6c4c1fa4577255cedf069b74d")
+    # a = VT("https://cartasense-coldchain.com/", "32cdd325e88f9126cf3fb455b301c3c17761e9b6c4c1fa4577255cedf069b74d" )
+    # a.analysis_url()
     #
-    print(a.analysis_url())
-    print(b.analysis_url())
+    # a.load_cache()
+    # a.save_cache()
+    # a.get_analize_from_file()
+
+
+    # b = VT("https://postgresapp.com/", "32cdd325e88f9126cf3fb455b301c3c17761e9b6c4c1fa4577255cedf069b74d")
+    # b.analysis_url()
+    # b.load_cache()
+    # b.save_cache()
+    # b.get_analize_from_file()
+    # print(a.analysis_url())
+    #print(b.analysis_url())
     #print(a.get_analize_from_file("https://cartasense-coldchain.com"))
