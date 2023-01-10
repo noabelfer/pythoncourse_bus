@@ -6,14 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="ab6a2005-3e20-4c3e-8a02-42849b22c925" name="Changes" comment="cd">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lesson_16/aba.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lesson_16/data_url.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lesson_16/important" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lesson_16/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/lesson_16/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lesson_16/pickle.cache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lesson_16/pickle.cache.pickle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lesson_16/try.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lesson_16/vt.py" beforeDir="false" afterPath="$PROJECT_DIR$/lesson_16/vt.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -156,7 +148,14 @@
       <option name="project" value="LOCAL" />
       <updated>1673300311068</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="cd">
+      <created>1673372059370</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1673372059370</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
