@@ -11,12 +11,10 @@ import time
 import requests
 
 
-
-
 class VT:
     def __init__(self, url: tuple, apikey):
         self.urls:tuple = url
-        self.apikey = os.environ["VT_API"]
+        self.apikey = os.environ['API_KEY']
         self.cache = {}
         self.lock = threading.Lock()
 
@@ -46,39 +44,46 @@ class VT:
 
 
 
-    def analysis_url(self, url:str) -> dict:
-        self.load_cache()
-        if (url in self.cache):
-            timeepoch = self.cache[url]['time']
-            time_analize = datetime.fromtimestamp(timeepoch)
-            now = datetime.now()
-            if now - timedelta(days=180) <= time_analize <= now:
-                print('getting the info from cache')
-                return(self.cache[url])
+    def analysis_url(self, url:str) -> bool:
+        while True:
+            self.load_cache()
+            if (url in self.cache):
+                timeepoch = self.cache[url]['time']
+                print(self.cache[url])
+                time_analize = datetime.fromtimestamp(timeepoch)
+                print(time_analize, 'iii')
+                now = datetime.now()
 
-        url_id = base64.urlsafe_b64encode(url.encode()).decode().strip("=")
-        url_base = "https://www.virustotal.com/api/v3/urls/"
-        new_url = url_base + url_id
-        headers = {"accept": "application/json",
-                    "x-apikey": self.apikey
-                   }
-        # print(os.environ["VT_API"])
-        response_anal = requests.get(new_url, headers=headers)
-        if response_anal.status_code !=200 or response_anal.text is None:
-            if self.scan(url):
-                print('url has been scanned, run again for analyze')
-                return
-            raise Exception('not existing url')
-
-        file_anal = json.loads(response_anal.text)
-        data_url = ({'url': url,
-        'reputation':file_anal.get("data").get("attributes").get("reputation"),
-        'time': file_anal.get("data").get("attributes").get("last_analysis_date")})
+                if now - timedelta(days=180) <= time_analize <= now:
+                    print('getting the info from cache')
+                    return self.cache[url]
 
 
-        self.cache[url]= data_url
-        self.save_cache()
-        print(data_url)
+            url_id = base64.urlsafe_b64encode(url.encode()).decode().strip("=")
+            url_base = "https://www.virustotal.com/api/v3/urls/"
+            new_url = url_base + url_id
+            headers = {"accept": "application/json",
+                        "x-apikey": self.apikey
+                       }
+            # print(os.environ["VT_API"])
+            response_anal = requests.get(new_url, headers=headers)
+            if response_anal.status_code !=200 or response_anal.text is None:
+                if self.scan(url):
+                    print('url has been scanned')
+                    time.sleep(3)
+                    continue
+                raise Exception('not existing url')
+
+            file_anal = json.loads(response_anal.text)
+            data_url = ({'url': url,
+            'reputation':file_anal.get("data").get("attributes").get("reputation"),
+            'time': file_anal.get("data").get("attributes").get("last_analysis_date")})
+
+
+            self.cache[url]= data_url
+            self.save_cache()
+            print(data_url)
+            return False
 
 
 
