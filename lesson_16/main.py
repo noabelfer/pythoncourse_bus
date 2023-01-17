@@ -18,8 +18,6 @@ urls = args.urls
 toscan = args.scan
 apikey = args.apikey
 
-# if (apikey == None):
-#     apikey = "32cdd325e88f9126cf3fb455b301c3c17761e9b6c4c1fa4577255cedf069b74d"
 
 
 print('urls: '+str(urls)+' toscan: '+str(toscan))

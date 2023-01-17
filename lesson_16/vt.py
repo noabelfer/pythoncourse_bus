@@ -14,7 +14,7 @@ import requests
 class VT:
     def __init__(self, url: tuple, apikey):
         self.urls:tuple = url
-        self.apikey = os.environ['API_KEY']
+        self.apikey = apikey
         self.cache = {}
         self.lock = threading.Lock()
 
@@ -23,7 +23,7 @@ class VT:
         self.lock.acquire()
         try:
             with open('pickle.cache.pickle', 'rb') as f:
-                print('load')
+                print('loading information from cache')
                 self.cache = pickle.load(f)
                 f.close()
                 self.lock.release()
@@ -33,7 +33,7 @@ class VT:
 
 
     def save_cache(self):
-        print('save')
+        print('saving to cache')
         self.lock.acquire()
         try:
             with open('pickle.cache.pickle', 'wb') as f:
@@ -43,15 +43,12 @@ class VT:
             self.lock.release()
 
 
-
     def analysis_url(self, url:str) -> bool:
         while True:
             self.load_cache()
             if (url in self.cache):
                 timeepoch = self.cache[url]['time']
-                print(self.cache[url])
                 time_analize = datetime.fromtimestamp(timeepoch)
-                print(time_analize, 'iii')
                 now = datetime.now()
 
                 if now - timedelta(days=180) <= time_analize <= now:
@@ -65,7 +62,6 @@ class VT:
             headers = {"accept": "application/json",
                         "x-apikey": self.apikey
                        }
-            # print(os.environ["VT_API"])
             response_anal = requests.get(new_url, headers=headers)
             if response_anal.status_code !=200 or response_anal.text is None:
                 if self.scan(url):
@@ -75,9 +71,13 @@ class VT:
                 raise Exception('not existing url')
 
             file_anal = json.loads(response_anal.text)
+            time_e = file_anal.get("data").get("attributes").get("last_analysis_date")
+            time_updated = datetime.fromtimestamp(time_e)
+
             data_url = ({'url': url,
-            'reputation':file_anal.get("data").get("attributes").get("reputation"),
-            'time': file_anal.get("data").get("attributes").get("last_analysis_date")})
+                         'reputation': file_anal.get("data").get("attributes").get("reputation"),
+                         'time': file_anal.get("data").get("attributes").get("last_analysis_date"),
+                         'time_analyze':str(time_updated)})
 
 
             self.cache[url]= data_url
@@ -86,7 +86,7 @@ class VT:
             return False
 
 
-
+    #scans the url for an updated analize
     def scan(self, url:str) ->bool:
         url_vt = "https://www.virustotal.com/api/v3/urls"
         payload = "url=" + url
